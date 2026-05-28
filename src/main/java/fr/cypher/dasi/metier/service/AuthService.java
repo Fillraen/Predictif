@@ -6,6 +6,7 @@ import fr.cypher.dasi.dao.UtilisateurDAO;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Utilisateur;
 import fr.cypher.dasi.util.API.IfAstroNetApi;
+import fr.cypher.dasi.util.Message;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -23,13 +24,24 @@ public class AuthService {
             clientDao.creerClient(c);
             JpaUtil.validerTransaction();
             result = true;
+            Message.envoyerMail("contact@predict.if",
+                    c.getMail(),
+                    "Bienvenue chez PREDICT’IF",
+                    "Bonjour" + c.getPrenom() + ", nous vous confirmons votre inscription au service PREDICT’IF. Rendezvous vite sur notre site pour consulter votre profil astrologique et profiter des dons\n" +
+                            "incroyables de nos mediums");
         } catch (Exception e) {
+            Message.envoyerMail("contact@predict.if",
+                    c.getMail(),
+                    "Echec de l’inscription chez PREDICT’IF",
+                    "Bonjour " + c.getPrenom() + ", votre inscription au service PREDICT’IF a malencontreusement échoué...\n" +
+                            "Merci de recommencer ultérieurement.\n");
             System.err.println("[AuthService] Échec inscription : " + e.getMessage());
             e.printStackTrace();
             JpaUtil.annulerTransaction();
         } finally {
             JpaUtil.fermerContextePersistance();
         }
+
         return result;
     }
 
