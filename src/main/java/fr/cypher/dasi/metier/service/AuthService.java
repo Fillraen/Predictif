@@ -2,16 +2,18 @@ package fr.cypher.dasi.metier.service;
 
 import fr.cypher.dasi.dao.ClientDAO;
 import fr.cypher.dasi.dao.JpaUtil;
+import fr.cypher.dasi.dao.UtilisateurDAO;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Utilisateur;
 import fr.cypher.dasi.util.API.IfAstroNetApi;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class AuthService {
     private final ClientDAO clientDao = new ClientDAO();
-
+    private final UtilisateurDAO utilisateurDao = new UtilisateurDAO();
     public boolean Inscrire(Client c){
         boolean result = false;
         try {
@@ -29,5 +31,30 @@ public class AuthService {
             JpaUtil.fermerContextePersistance();
         }
         return result;
+    }
+
+    public Utilisateur Authentifier(String mail, String motDePasse){
+        Utilisateur u = null;
+        try {
+            JpaUtil.creerContextePersistance();
+            JpaUtil.ouvrirTransaction();
+            List<Utilisateur> utilisateurs = utilisateurDao.getAllWithFilter(null, null, mail, null);
+            if (!utilisateurs.isEmpty()) {
+                u = utilisateurs.get(0);
+                if (!u.getMotDePasse().equals(motDePasse)) {
+                    u = null;
+                }
+            }
+            JpaUtil.validerTransaction();
+        } catch (NoResultException e) {
+            System.err.println("[AuthService] Authentification échouée : utilisateur non trouvé");
+        } catch (Exception e) {
+            System.err.println("bug");
+            e.printStackTrace();
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return u;
     }
 }
