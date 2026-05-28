@@ -10,9 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class IfAstroNetApi {
 
@@ -21,15 +19,13 @@ public class IfAstroNetApi {
 
     private static final HttpClient HTTP = HttpClient.newHttpClient();
 
-    private static final SimpleDateFormat ISO = new SimpleDateFormat("yyyy-MM-dd");
-
     public static ProfilAstral obtenirProfilAstral(String prenom, LocalDate dateNaissance) {
         try {
             String url = URL
                     + "?service=profil"
                     + "&key=" + KEY
                     + "&prenom=" + encode(prenom)
-                    + "&date-naissance=" + ISO.format(dateNaissance);
+                    + "&date-naissance=" + dateNaissance.toString();
 
             JSONObject profil = new JSONObject(get(url)).getJSONObject("profil");
 

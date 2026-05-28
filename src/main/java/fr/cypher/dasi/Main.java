@@ -10,6 +10,10 @@ public class Main {
         JpaUtil.creerFabriquePersistance();
         MainTest.executer();
 
+        System.out.println();
+        System.out.println("========================================");
+        System.out.println();
+
         Inscription.executer();
 
         System.out.println();

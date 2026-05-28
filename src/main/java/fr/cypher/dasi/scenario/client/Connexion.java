@@ -7,6 +7,7 @@ import fr.cypher.dasi.metier.modele.enums.Genre;
 import fr.cypher.dasi.metier.service.AuthService;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Connexion {
 
@@ -19,7 +20,7 @@ public class Connexion {
         Adresse adresseBob = new Adresse("12", "Rue des Lilas", "69003", "Lyon", "69");
         Client bob = new Client(
                 "bob@predictif.fr", "Bob", "secret42", "0611223344",
-                "Martin", Date.valueOf("1988-07-15"), adresseBob, Genre.HOMME
+                "Martin", LocalDate.of(1988,7,15), adresseBob, Genre.HOMME
         );
         boolean inscrit = authService.Inscrire(bob);
         System.out.println("Inscription Bob : " + (inscrit ? "OK" : "ECHEC"));
