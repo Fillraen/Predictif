@@ -12,6 +12,7 @@
     <class>fr.cypher.dasi.metier.modele.Astrologue</class>
     <class>fr.cypher.dasi.metier.modele.Spirite</class>
     <class>fr.cypher.dasi.metier.modele.Cartomancien</class>
+    <class>fr.cypher.dasi.metier.modele.Prediction</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/DASI-DB?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="dasi"/>

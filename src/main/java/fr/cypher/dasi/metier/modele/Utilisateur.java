@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Utilisateur implements Serializable {
 
     @Id
@@ -16,6 +17,7 @@ public class Utilisateur implements Serializable {
     @Column(unique = true)
     private String mail;
 
+    private String nom;
     private String prenom;
     private String motDePasse;
     private String telephone;
@@ -26,12 +28,13 @@ public class Utilisateur implements Serializable {
     @Column(nullable = false)
     private Genre genre;
 
-    public Utilisateur(String mail, String prenom, String motDePasse, String telephone, Genre genre) {
+    public Utilisateur(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre) {
         this.mail = mail;
         this.prenom = prenom;
         this.motDePasse = motDePasse;
         this.telephone = telephone;
         this.genre = genre;
+        this.nom = nom;
     }
 
     public Utilisateur() {
@@ -39,6 +42,14 @@ public class Utilisateur implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getMail() {
@@ -84,11 +95,11 @@ public class Utilisateur implements Serializable {
     @Override
     public String toString() {
         return "Utilisateur{" +
-                "telephone='" + telephone + '\'' +
-                ", id=" + id +
-                ", mail='" + mail + '\'' +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", genre='" + genre + '\'' +
+                ", mail='" + mail + '\'' +
                 '}';
     }
 

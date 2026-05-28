@@ -4,6 +4,7 @@ import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.service.ClientService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
@@ -13,9 +14,10 @@ public class Main {
         JpaUtil.creerFabriquePersistance();
         ClientService service = new ClientService();
 
-        Client bres = new Client("bres", "stephane","jaimeDiagonalise@gmail.com","LaGrange");
-        Client prost = new Client("prost", "frederic","funfunfun@fun.fun","pasUtile");
-        Client guerin = new Client("eric", "guerin","jaimeDiagonalise@gmail.com","EricGuedin");
+        // mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse
+        Client bres = new Client("jaimeDiagonalise@gmail.com", "stephane", "LaGrange", null, "bres", null, null);
+        Client prost = new Client("funfunfun@fun.fun", "frederic", "pasUtile", null, "prost", null, null);
+        Client guerin = new Client("eguerin@67.fr", "eric", "EricGuedin", null, "guerin", null, null);
         System.out.println(bres);
 
         boolean inscription = service.inscrireClient(bres);
