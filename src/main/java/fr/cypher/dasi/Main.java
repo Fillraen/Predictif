@@ -1,57 +1,14 @@
 package fr.cypher.dasi;
 
 import fr.cypher.dasi.dao.JpaUtil;
-import fr.cypher.dasi.metier.modele.Client;
-import fr.cypher.dasi.metier.modele.Medium;
-import fr.cypher.dasi.metier.modele.Spirite;
-import fr.cypher.dasi.metier.modele.enums.Genre;
-import fr.cypher.dasi.metier.modele.enums.TypeMedium;
-import fr.cypher.dasi.metier.service.ClientService;
-import fr.cypher.dasi.metier.service.InitService;
-import fr.cypher.dasi.metier.service.MediumService;
-
-import java.util.List;
+import fr.cypher.dasi.scenario.client.Inscription;
+import fr.cypher.dasi.test.MainTest;
 
 public class Main {
-    static void mediums() {
-        MediumService mediumService = new MediumService();
-        InitService initService = new InitService();
-        initService.init();
-        List<Medium> mediums = mediumService.listerMediums();
-        for (Medium medium : mediums) {
-            System.out.println(medium);
-        }
-        System.out.println("--------");
-        List<Medium> spirites = mediumService.listerMediums(TypeMedium.SPIRITE);
-        for (Medium spirite : spirites) {
-            System.out.println(spirite);
-        }
-    }
-
-    static void main() {
-        System.out.println("Hello World!");
-
+    static void main(String[] args) {
         JpaUtil.creerFabriquePersistance();
-        ClientService service = new ClientService();
-
-        // mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse
-        Client bres = new Client("jaimeDiagonalise@gmail.com", "stephane", "LaGrange", null, "bres", null, null, Genre.HOMME);
-        Client prost = new Client("funfunfun@fun.fun", "frederic", "pasUtile", null, "prost", null, null, Genre.FEMME);
-        Client guerin = new Client("eguerin@67.fr", "eric", "EricGuedin", null, "guerin", null, null, Genre.NON_SPECIFIE);
-        System.out.println(bres);
-
-        boolean inscription = service.inscrireClient(bres);
-        System.out.println("Inscription: " + inscription);
-        inscription = service.inscrireClient(prost);
-        System.out.println("Inscription: " + inscription);
-        inscription = service.inscrireClient(guerin);
-        System.out.println("Inscription: " + inscription);
-        System.out.println(bres);
-
-        List<Client> clients = service.listerClients();
-        if (clients != null) for (Client c : clients) System.out.println(c);
-        else System.out.println("Rien");
-
-        mediums();
+        MainTest.executer();
+        Inscription.executer();
+        JpaUtil.fermerFabriquePersistance();
     }
 }
