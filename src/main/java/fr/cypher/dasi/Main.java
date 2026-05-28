@@ -1,36 +1,12 @@
 package fr.cypher.dasi;
 
 import fr.cypher.dasi.dao.JpaUtil;
-import fr.cypher.dasi.metier.modele.Client;
-import fr.cypher.dasi.metier.modele.enums.Genre;
-import fr.cypher.dasi.metier.service.ClientService;
-
-import java.time.LocalDate;
-import java.util.List;
+import fr.cypher.dasi.scenario.client.Inscription;
 
 public class Main {
-    static void main() {
-        System.out.println("Hello World!");
-
+    public static void main(String[] args) {
         JpaUtil.creerFabriquePersistance();
-        ClientService service = new ClientService();
-
-        // mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse
-        Client bres = new Client("jaimeDiagonalise@gmail.com", "stephane", "LaGrange", null, "bres", null, null, Genre.HOMME);
-        Client prost = new Client("funfunfun@fun.fun", "frederic", "pasUtile", null, "prost", null, null, Genre.FEMME);
-        Client guerin = new Client("eguerin@67.fr", "eric", "EricGuedin", null, "guerin", null, null, Genre.NON_SPECIFIE);
-        System.out.println(bres);
-
-        boolean inscription = service.inscrireClient(bres);
-        System.out.println("Inscription: " + inscription);
-        inscription = service.inscrireClient(prost);
-        System.out.println("Inscription: " + inscription);
-        inscription = service.inscrireClient(guerin);
-        System.out.println("Inscription: " + inscription);
-        System.out.println(bres);
-
-        List<Client> clients = service.listerClients();
-        if (clients != null) for (Client c : clients) System.out.println(c);
-        else System.out.println("Rien");
+        Inscription.executer();
+        JpaUtil.fermerFabriquePersistance();
     }
 }

@@ -21,4 +21,5 @@ public class ClientDAO {
         TypedQuery<Client> clients = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Client c", Client.class);
         return clients.getResultList();
     }
+
 }
