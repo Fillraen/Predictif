@@ -7,6 +7,7 @@ import fr.cypher.dasi.metier.service.AuthService;
 import fr.cypher.dasi.metier.service.ClientService;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Inscription {
@@ -20,7 +21,7 @@ public class Inscription {
         Adresse adresseAlice = new Adresse("20", "Avenue Albert Einstein", "69100", "Villeurbanne", "69");
         Client alice = new Client(
                 "alice@predictif.fr", "Alice", "motdepasse123", "0600000001",
-                "Dupont", Date.valueOf("1995-12-10"), adresseAlice, Genre.FEMME
+                "Dupont", LocalDate.of(1995, 12, 10), adresseAlice, Genre.FEMME
         );
         boolean res1 = authService.Inscrire(alice);
         System.out.println("Résultat : " + (res1 ? "OK - client inscrit" : "ECHEC"));
@@ -31,7 +32,7 @@ public class Inscription {
         Adresse adresseDoublon = new Adresse("5", "Rue de la Paix", "75001", "Paris", "75");
         Client aliceDoublon = new Client(
                 "alice@predictif.fr", "Alice", "autreMotDePasse", "0600000002",
-                "Martin", Date.valueOf("1990-05-20"), adresseDoublon, Genre.FEMME
+                "Martin", LocalDate.of(1990, 5, 20), adresseDoublon, Genre.FEMME
         );
         boolean res2 = authService.Inscrire(aliceDoublon);
         System.out.println("Résultat : " + (res2 ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));
