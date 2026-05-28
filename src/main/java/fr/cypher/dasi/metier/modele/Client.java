@@ -2,6 +2,8 @@ package fr.cypher.dasi.metier.modele;
 
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.embedded.ProfilAstral;
+import fr.cypher.dasi.metier.modele.enums.Genre;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -19,14 +21,14 @@ public class Client extends Utilisateur implements Serializable {
     @Embedded
     private ProfilAstral profilAstral;
 
-    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse) {
-        super(mail, prenom, motDePasse, telephone, nom);
+    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, Genre genre) {
+        super(mail, prenom, nom, motDePasse, telephone, genre);
         this.dateDeNaissance = dateDeNaissance;
         this.adresse = adresse;
     }
 
-    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
-        this(mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse);
+    public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
+        this(mail, prenom, nom, motDePasse, telephone, dateDeNaissance, adresse, genre);
         this.profilAstral = profilAstral;
     }
     
@@ -59,11 +61,7 @@ public class Client extends Utilisateur implements Serializable {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + getId() +
-                ", nom='" + getNom() + '\'' +
-                ", prenom='" + getPrenom() + '\'' +
-                ", mail='" + getMail() + '\'' +
+        return "Client{" + super.toString() +
                 ", dateDeNaissance=" + dateDeNaissance +
                 ", adresse=" + adresse +
                 ", profilAstral=" + profilAstral +

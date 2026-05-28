@@ -26,8 +26,8 @@ public class Astrologue extends Medium {
 
     @Override
     public String toString() {
-        return super.toString() + " : " + "Astrologue{" +
-                "formation='" + formation + '\'' +
+        return "Astrologue{" + super.toString() +
+                ", formation='" + formation + '\'' +
                 ", promotion=" + promotion +
                 '}';
     }

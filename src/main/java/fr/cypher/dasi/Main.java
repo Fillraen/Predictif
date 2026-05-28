@@ -2,6 +2,7 @@ package fr.cypher.dasi;
 
 import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
+import fr.cypher.dasi.metier.modele.enums.Genre;
 import fr.cypher.dasi.metier.service.ClientService;
 
 import java.time.LocalDate;
@@ -15,9 +16,9 @@ public class Main {
         ClientService service = new ClientService();
 
         // mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse
-        Client bres = new Client("jaimeDiagonalise@gmail.com", "stephane", "LaGrange", null, "bres", null, null);
-        Client prost = new Client("funfunfun@fun.fun", "frederic", "pasUtile", null, "prost", null, null);
-        Client guerin = new Client("eguerin@67.fr", "eric", "EricGuedin", null, "guerin", null, null);
+        Client bres = new Client("jaimeDiagonalise@gmail.com", "stephane", "LaGrange", null, "bres", null, null, Genre.HOMME);
+        Client prost = new Client("funfunfun@fun.fun", "frederic", "pasUtile", null, "prost", null, null, Genre.FEMME);
+        Client guerin = new Client("eguerin@67.fr", "eric", "EricGuedin", null, "guerin", null, null, Genre.NON_SPECIFIE);
         System.out.println(bres);
 
         boolean inscription = service.inscrireClient(bres);

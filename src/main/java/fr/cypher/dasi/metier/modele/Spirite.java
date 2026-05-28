@@ -22,8 +22,8 @@ public class Spirite extends Medium {
 
     @Override
     public String toString() {
-        return super.toString() + " : " + "Astrologue{" +
-                "support='" + support +
+        return "Spirite{" + super.toString() +
+                ", support='" + support +
                 '}';
     }
 }

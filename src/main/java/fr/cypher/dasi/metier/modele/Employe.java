@@ -15,15 +15,15 @@ public class Employe extends Utilisateur {
         this.estDisponible = estDisponible;
     }
 
-    public Employe(String mail, String prenom, String motDePasse, String telephone, Genre genre, boolean estDisponible) {
-        super(mail, prenom, motDePasse, telephone, genre);
+    public Employe(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, boolean estDisponible) {
+        super(mail, prenom, nom, motDePasse, telephone, genre);
         this.estDisponible = estDisponible;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " : " + "Astrologue{" +
-                "estDisponible='" + estDisponible +
+        return "Employe{" + super.toString() +
+                ", estDisponible='" + estDisponible +
                 '}';
     }
 }
