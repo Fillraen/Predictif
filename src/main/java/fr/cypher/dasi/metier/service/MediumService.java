@@ -6,6 +6,7 @@ import fr.cypher.dasi.dao.MediumDAO;
 import fr.cypher.dasi.metier.modele.Medium;
 import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MediumService {
@@ -35,5 +36,9 @@ public class MediumService {
             JpaUtil.fermerContextePersistance();
         }
         return null;
+    }
+
+    public List<TypeMedium> listerTypeMediums() {
+        return Arrays.stream(TypeMedium.values()).toList();
     }
 }
