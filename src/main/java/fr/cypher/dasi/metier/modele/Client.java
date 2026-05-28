@@ -5,15 +5,18 @@ import fr.cypher.dasi.metier.modele.embedded.ProfilAstral;
 import fr.cypher.dasi.metier.modele.enums.Genre;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Client extends Utilisateur implements Serializable {
 
-    private LocalDate dateDeNaissance;
+    @Temporal(TemporalType.DATE)
+    private Date dateDeNaissance;
 
     @Embedded
     private Adresse adresse;
@@ -21,13 +24,13 @@ public class Client extends Utilisateur implements Serializable {
     @Embedded
     private ProfilAstral profilAstral;
 
-    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, Genre genre) {
+    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, Date dateDeNaissance, Adresse adresse, Genre genre) {
         super(mail, prenom, nom, motDePasse, telephone, genre);
         this.dateDeNaissance = dateDeNaissance;
         this.adresse = adresse;
     }
 
-    public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
+    public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, Date dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
         this(mail, prenom, nom, motDePasse, telephone, dateDeNaissance, adresse, genre);
         this.profilAstral = profilAstral;
     }
@@ -35,11 +38,11 @@ public class Client extends Utilisateur implements Serializable {
     public Client() {
     }
 
-    public LocalDate getDateDeNaissance() {
+    public Date getDateDeNaissance() {
         return dateDeNaissance;
     }
 
-    public void setDateDeNaissance(LocalDate dateDeNaissance) {
+    public void setDateDeNaissance(Date dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 

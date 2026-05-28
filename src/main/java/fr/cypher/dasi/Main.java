@@ -2,13 +2,32 @@ package fr.cypher.dasi;
 
 import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
+import fr.cypher.dasi.metier.modele.Medium;
+import fr.cypher.dasi.metier.modele.Spirite;
 import fr.cypher.dasi.metier.modele.enums.Genre;
+import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 import fr.cypher.dasi.metier.service.ClientService;
+import fr.cypher.dasi.metier.service.InitService;
+import fr.cypher.dasi.metier.service.MediumService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
+    static void mediums() {
+        MediumService mediumService = new MediumService();
+        InitService initService = new InitService();
+        initService.init();
+        List<Medium> mediums = mediumService.listerMediums();
+        for (Medium medium : mediums) {
+            System.out.println(medium);
+        }
+        System.out.println("--------");
+        List<Medium> spirites = mediumService.listerMediums(TypeMedium.SPIRITE);
+        for (Medium spirite : spirites) {
+            System.out.println(spirite);
+        }
+    }
+
     static void main() {
         System.out.println("Hello World!");
 
@@ -32,5 +51,7 @@ public class Main {
         List<Client> clients = service.listerClients();
         if (clients != null) for (Client c : clients) System.out.println(c);
         else System.out.println("Rien");
+
+        mediums();
     }
 }
