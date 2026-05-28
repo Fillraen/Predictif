@@ -7,6 +7,7 @@
   <persistence-unit name="pu">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>fr.cypher.dasi.metier.modele.Client</class>
+    <class>fr.cypher.dasi.metier.modele.Utilisateur</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/DASI-DB?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="dasi"/>
