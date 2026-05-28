@@ -72,7 +72,6 @@ public class Medium {
 
     public void addConsultation(Consultation consultation) {
         this.consultations.add(consultation);
-        // TODO consultation.medium =
     }
 
     @Override

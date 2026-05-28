@@ -15,7 +15,7 @@ public class Consultation {
     private LocalDate date;
 
     @Column(nullable = false)
-    private boolean estTermine;
+    private boolean estTermine = false;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -28,6 +28,27 @@ public class Consultation {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Medium medium;
+
+    public Consultation(String commentaire, LocalDate date, boolean estTermine, Client client, Employe employe, Medium medium) {
+        this.commentaire = commentaire;
+        this.date = date;
+        this.estTermine = estTermine;
+        this.client = client;
+        this.employe = employe;
+        this.medium = medium;
+        client.addConsultation(this);
+        employe.addConsultation(this);
+        medium.addConsultation(this);
+    }
+
+    public Consultation(Client client, Employe employe, Medium medium) {
+        this.client = client;
+        this.employe = employe;
+        this.medium = medium;
+        client.addConsultation(this);
+        employe.addConsultation(this);
+        medium.addConsultation(this);
+    }
 
     public Consultation(String commentaire, LocalDate date, boolean estTermine) {
         this.commentaire = commentaire;

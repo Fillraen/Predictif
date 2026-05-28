@@ -69,9 +69,8 @@ public class Client extends Utilisateur implements Serializable {
         return consultations;
     }
 
-    public void addConsultations(Consultation consultation) {
+    public void addConsultation(Consultation consultation) {
         this.consultations.add(consultation);
-        // TODO consultation.client =
     }
 
     @Override

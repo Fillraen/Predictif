@@ -32,7 +32,6 @@ public class Employe extends Utilisateur {
 
     public void addConsultation(Consultation consultation) {
         this.consultations.add(consultation);
-        // TODO consultation.employe =
     }
 
     @Override
