@@ -1,17 +1,35 @@
 package fr.cypher.dasi;
 
+import fr.cypher.dasi.dao.JpaUtil;
+import fr.cypher.dasi.metier.modele.Client;
+import fr.cypher.dasi.metier.service.ClientService;
+
+import java.util.List;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        System.out.println("Hello World!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        JpaUtil.creerFabriquePersistance();
+        ClientService service = new ClientService();
+
+        Client bres = new Client("bres", "stephane","jaimeDiagonalise@gmail.com","LaGrange");
+        Client prost = new Client("prost", "frederic","funfunfun@fun.fun","pasUtile");
+        Client guerin = new Client("eric", "guerin","jaimeDiagonalise@gmail.com","EricGuedin");
+        System.out.println(bres);
+
+        boolean inscription = service.inscrireClient(bres);
+        System.out.println("Inscription: " + inscription);
+        inscription = service.inscrireClient(prost);
+        System.out.println("Inscription: " + inscription);
+        inscription = service.inscrireClient(guerin);
+        System.out.println("Inscription: " + inscription);
+        System.out.println(bres);
+
+        List<Client> clients = service.listerClients();
+        if (clients != null) for (Client c : clients) System.out.println(c);
+        else System.out.println("Rien");
     }
 }
