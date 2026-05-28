@@ -1,12 +1,10 @@
 package fr.cypher.dasi.metier.modele;
 
+import fr.cypher.dasi.metier.modele.enums.Genre;
+
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Utilisateur implements Serializable {
@@ -22,11 +20,18 @@ public class Utilisateur implements Serializable {
     private String motDePasse;
     private String telephone;
 
-    public Utilisateur(String mail, String prenom, String motDePasse, String telephone) {
+    // This is kinda risky, if we rename any enum value, this will "corrupt" the database
+    // Indeed, data will be based on enum value names.
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Genre genre;
+
+    public Utilisateur(String mail, String prenom, String motDePasse, String telephone, Genre genre) {
         this.mail = mail;
         this.prenom = prenom;
         this.motDePasse = motDePasse;
         this.telephone = telephone;
+        this.genre = genre;
     }
 
     public Utilisateur() {
@@ -34,10 +39,6 @@ public class Utilisateur implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getMail() {
@@ -72,6 +73,14 @@ public class Utilisateur implements Serializable {
         this.telephone = telephone;
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
     @Override
     public String toString() {
         return "Utilisateur{" +
@@ -79,6 +88,7 @@ public class Utilisateur implements Serializable {
                 ", id=" + id +
                 ", mail='" + mail + '\'' +
                 ", prenom='" + prenom + '\'' +
+                ", genre='" + genre + '\'' +
                 '}';
     }
 
