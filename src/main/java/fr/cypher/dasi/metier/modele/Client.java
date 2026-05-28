@@ -6,9 +6,12 @@ import fr.cypher.dasi.metier.modele.enums.Genre;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Client extends Utilisateur implements Serializable {
@@ -20,6 +23,9 @@ public class Client extends Utilisateur implements Serializable {
 
     @Embedded
     private ProfilAstral profilAstral;
+
+    @OneToMany(mappedBy = "client")
+    private final List<Consultation> consultations = new ArrayList<>();
 
     public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, Genre genre) {
         super(mail, prenom, nom, motDePasse, telephone, genre);
@@ -57,6 +63,15 @@ public class Client extends Utilisateur implements Serializable {
 
     public void setProfilAstral(ProfilAstral profilAstral) {
         this.profilAstral = profilAstral;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void addConsultations(Consultation consultation) {
+        this.consultations.add(consultation);
+        // TODO consultation.client =
     }
 
     @Override

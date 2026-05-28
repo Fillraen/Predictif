@@ -21,6 +21,11 @@ public class MainTest {
         for (Medium spirite : spirites) {
             System.out.println(spirite);
         }
+        System.out.println("--------");
+        List<TypeMedium> types = mediumService.listerTypeMediums();
+        for (TypeMedium type : types) {
+            System.out.println(type);
+        }
     }
 
     public static void executer() {

@@ -3,6 +3,8 @@ package fr.cypher.dasi.metier.modele;
 import fr.cypher.dasi.metier.modele.enums.Genre;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +26,9 @@ public class Medium {
 
     // Phrase d'accroche. Exemple : Votre avenir est devant vous : regardons-le ensemble !
     private String presentation;
+
+    @OneToMany(mappedBy = "medium")
+    private final List<Consultation> consultations = new ArrayList<>();
 
     public Medium(String denomination, Genre genre, String presentation) {
         this.denomination = denomination;
@@ -59,6 +64,15 @@ public class Medium {
 
     public void setPresentation(String presentation) {
         this.presentation = presentation;
+    }
+
+    public List<Consultation> getConsultations() {
+        return this.consultations;
+    }
+
+    public void addConsultation(Consultation consultation) {
+        this.consultations.add(consultation);
+        // TODO consultation.medium =
     }
 
     @Override
