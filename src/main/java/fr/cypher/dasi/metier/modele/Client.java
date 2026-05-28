@@ -1,106 +1,84 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.cypher.dasi.metier.modele;
 
+import fr.cypher.dasi.metier.modele.embedded.Adresse;
+import fr.cypher.dasi.metier.modele.embedded.ProfilAstral;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-/**
- *
- * @author clemaire
- */
 @Entity
-public class Client implements Serializable {
-    @Id()
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
-    protected String nom;
-    protected String prenom;
-    @Column(unique = true)
-    protected String mail;
-    protected String motDePasse;
+public class Client extends Utilisateur implements Serializable {
 
-    public Client(String nom, String prenom, String mail, String motDePasse) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.motDePasse = motDePasse;
+    private LocalDate dateDeNaissance;
+
+    @Embedded
+    private Adresse adresse;
+
+    @Embedded
+    private ProfilAstral profilAstral;
+
+    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse) {
+        super(mail, prenom, motDePasse, telephone, nom);
+        this.dateDeNaissance = dateDeNaissance;
+        this.adresse = adresse;
     }
 
+    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
+        this(mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse);
+        this.profilAstral = profilAstral;
+    }
+    
     public Client() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public LocalDate getDateDeNaissance() {
+        return dateDeNaissance;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setDateDeNaissance(LocalDate dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public Adresse getAdresse() {
+        return adresse;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public ProfilAstral getProfilAstral() {
+        return profilAstral;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public String getMotDePasse() {
-        return motDePasse;
+    public void setProfilAstral(ProfilAstral profilAstral) {
+        this.profilAstral = profilAstral;
     }
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", motDePasse=" + motDePasse + '}';
+        return "Client{" +
+                "id=" + getId() +
+                ", nom='" + getNom() + '\'' +
+                ", prenom='" + getPrenom() + '\'' +
+                ", mail='" + getMail() + '\'' +
+                ", dateDeNaissance=" + dateDeNaissance +
+                ", adresse=" + adresse +
+                ", profilAstral=" + profilAstral +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Client other = (Client) o;
+        return Objects.equals(getId(), other.getId());
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Client other = (Client) obj;
-        return Objects.equals(this.id, other.id);
+        return Objects.hashCode(getId());
     }
 }
