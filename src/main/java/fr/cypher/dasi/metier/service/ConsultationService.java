@@ -11,10 +11,10 @@ import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Consultation;
 import fr.cypher.dasi.metier.modele.Employe;
 import fr.cypher.dasi.metier.modele.Medium;
-import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 import fr.cypher.dasi.util.Message;
 
 import javax.persistence.NoResultException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,5 +100,62 @@ public class ConsultationService {
             JpaUtil.fermerContextePersistance();
         }
         return null;
+    }
+
+    public boolean declarerPret(Consultation consultation) {
+        boolean result = false;
+        try {
+            JpaUtil.creerContextePersistance();
+            if (consultation == null || consultation.isEstTermine()) {
+                System.err.println("Impossible de se déclarer prêt, la consultation est déjà terminée ou null : " + consultation);
+                return false;
+            }
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH'h'mm");
+            Message.envoyerNotification(consultation.getClient().getTelephone(),
+                    "Bonjour " +
+                            consultation.getClient().getPrenom() +
+                            ". J'ai bien reçu votre demande de consultation du " +
+                            consultation.getDateTime().format(dateFormatter) +
+                            " à " +
+                            consultation.getDateTime().format(timeFormatter) +
+                            ". Vous pouvez dès maintenant me contacter au " +
+                            consultation.getEmploye().getTelephone() +
+                            ". À tout de suite ! Médiumiquement vôtre, " +
+                            consultation.getMedium().getDenomination()
+            );
+            result = true;
+        } catch (Exception e) {
+            System.err.println("Problème pour déclarer prêt pour la consultation : " + consultation);
+            e.printStackTrace();
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return result;
+    }
+
+    public boolean terminerConsultation(Consultation consultation, String commentaire) {
+        boolean result = false;
+        try {
+            JpaUtil.creerContextePersistance();
+            if (consultation == null || consultation.isEstTermine()) {
+                System.err.println("Impossible de terminer la consultation, elle est déjà terminée ou null : " + consultation);
+                return false;
+            }
+            JpaUtil.ouvrirTransaction();
+            consultation.setEstTermine(true);
+            consultation.setCommentaire(commentaire);
+            consultationDAO.modifierConsultation(consultation);
+            JpaUtil.validerTransaction();
+            result = true;
+        } catch (Exception e) {
+            System.err.println("Problème pour déclarer prêt pour la consultation : " + consultation);
+            e.printStackTrace();
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return result;
     }
 }

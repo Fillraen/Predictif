@@ -4,15 +4,11 @@
  */
 package fr.cypher.dasi.metier.service;
 
-import fr.cypher.dasi.dao.ClientDAO;
 import fr.cypher.dasi.dao.EmployeDAO;
 import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.dao.MediumDAO;
 import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.enums.Genre;
-import fr.cypher.dasi.util.Message;
-
-import java.util.List;
 
 /**
  *

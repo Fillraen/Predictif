@@ -9,7 +9,6 @@ import fr.cypher.dasi.util.API.IfAstroNetApi;
 import fr.cypher.dasi.util.Message;
 
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class AuthService {

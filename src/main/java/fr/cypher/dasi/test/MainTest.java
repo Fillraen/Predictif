@@ -43,14 +43,14 @@ public class MainTest {
         // 2 employees Genre.FEMME available
         boolean result = consultationService.demanderConsultation(client, medium);
         if (result) System.out.println("[OK] Consultation demandée avec succès");
-        else System.out.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
+        else System.err.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
 
         result = consultationService.demanderConsultation(client, medium);
         if (result) System.out.println("[OK] Consultation demandée avec succès");
-        else System.out.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
+        else System.err.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
 
         result = consultationService.demanderConsultation(client, medium);
-        if (result) System.out.println("[ERREUR] Consultation demandée avec succès (il n'aurait pas dû réussir, employé non disponible)");
+        if (result) System.err.println("[ERREUR] Consultation demandée avec succès (il n'aurait pas dû réussir, employé non disponible)");
         else System.out.println("[OK] Echec de demande de consultation (ce qu'on cherchait, aucun employé disponible)");
 
         List<Consultation> consultations = consultationService.consulterHistoriqueConsultations(client);
@@ -63,15 +63,23 @@ public class MainTest {
         Employe brice = employes.get(1);
         Consultation consultationCamille = consultationService.consulterConsultationAffectee(camille);
         if (consultationCamille != null) System.out.println("[OK] Consultation : " + consultationCamille);
-        else System.out.println("[ERREUR] Aucune consultation pour Camille (elle doit en avoir une normalement)");
-
+        else System.err.println("[ERREUR] Aucune consultation pour Camille (elle doit en avoir une normalement)");
         Consultation consultationMarine = consultationService.consulterConsultationAffectee(marine);
         if (consultationMarine != null) System.out.println("[OK] Consultation : " + consultationMarine);
-        else System.out.println("[ERREUR] Aucune consultation pour Marine (elle doit en avoir une normalement)");
-
+        else System.err.println("[ERREUR] Aucune consultation pour Marine (elle doit en avoir une normalement)");
         Consultation consultationBrice = consultationService.consulterConsultationAffectee(brice);
-        if (consultationBrice != null) System.out.println("[ERROR] Consultation (normalement aucune) : " + consultationBrice);
+        if (consultationBrice != null) System.err.println("[ERREUR] Consultation (normalement aucune) : " + consultationBrice);
         else System.out.println("[OK] Aucune consultation pour Brice (comportement attendu)");
+
+        if(consultationService.declarerPret(consultationCamille)) System.out.println("[OK] Prêt !");
+        else System.err.println("[ERREUR] Impossible de se mettre prêt.");
+        if(consultationService.declarerPret(consultationBrice)) System.err.println("[ERROR] Prêt ! (censé être null)");
+        else System.out.println("[OK] Impossible de se mettre prêt.");
+
+        if (consultationService.terminerConsultation(consultationCamille, "Banger")) System.out.println("[OK] Consultation finie !");
+        else System.err.println("[ERROR] Consultation non terminée.");
+        if (consultationService.terminerConsultation(consultationBrice, "Décevant")) System.err.println("[ERROR] Consultation finie (pas censé être le cas)");
+        else System.out.println("[OK] Consultation non terminée (résultat attendu).");
     }
 
     public static void executer() {

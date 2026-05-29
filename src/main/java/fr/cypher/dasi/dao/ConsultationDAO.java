@@ -2,7 +2,6 @@ package fr.cypher.dasi.dao;
 
 import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.enums.Genre;
-import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -41,5 +40,9 @@ public class ConsultationDAO {
         TypedQuery<Consultation> consultations = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Consultation c WHERE c.employe = :employe AND c.estTermine = false", Consultation.class);
         consultations.setParameter("employe", employe);
         return consultations.getSingleResult();
+    }
+
+    public void modifierConsultation(Consultation consultation) {
+        JpaUtil.obtenirContextePersistance().merge(consultation);
     }
 }
