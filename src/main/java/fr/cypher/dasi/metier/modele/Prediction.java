@@ -7,13 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
 public class Prediction implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     private String amour;
     private String sante;
     private String travail;
@@ -22,17 +16,6 @@ public class Prediction implements Serializable {
         this.amour = amour;
         this.sante = sante;
         this.travail = travail;
-    }
-
-    public Prediction() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getAmour() {
@@ -61,23 +44,10 @@ public class Prediction implements Serializable {
 
     @Override
     public String toString() {
-        return "Prediction{" +
-                "id=" + id +
-                ", amour='" + amour + '\'' +
-                ", sante='" + sante + '\'' +
-                ", travail='" + travail + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Prediction other = (Prediction) o;
-        return Objects.equals(id, other.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+        return "=== Prediction : ===\n" +
+                "\tAmour : " + amour + "\n" +
+                "\tSante : " + sante + "\n" +
+                "\tTravail : " + travail + "\n" +
+                "===   - ~ ~ -   ===";
     }
 }

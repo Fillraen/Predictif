@@ -1,9 +1,6 @@
 package fr.cypher.dasi.test;
 
-import fr.cypher.dasi.metier.modele.Client;
-import fr.cypher.dasi.metier.modele.Consultation;
-import fr.cypher.dasi.metier.modele.Employe;
-import fr.cypher.dasi.metier.modele.Medium;
+import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
 import fr.cypher.dasi.metier.modele.enums.TypeMedium;
@@ -80,6 +77,8 @@ public class MainTest {
         else System.err.println("[ERROR] Consultation non terminée.");
         if (consultationService.terminerConsultation(consultationBrice, "Décevant")) System.err.println("[ERROR] Consultation finie (pas censé être le cas)");
         else System.out.println("[OK] Consultation non terminée (résultat attendu).");
+
+        System.out.println(employeService.demanderInspiration(client.getProfilAstral(), 2, 4, 3));
     }
 
     public static void executer() {

@@ -38,8 +38,6 @@ public class InitService {
         return result;
     }
 
-    public void Employe(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, boolean estDisponible) {}
-
     private void initEmploye() {
         employeDAO.creerEmploye(
             new Employe(

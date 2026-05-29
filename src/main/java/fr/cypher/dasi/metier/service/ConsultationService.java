@@ -105,7 +105,6 @@ public class ConsultationService {
     public boolean declarerPret(Consultation consultation) {
         boolean result = false;
         try {
-            JpaUtil.creerContextePersistance();
             if (consultation == null || consultation.isEstTermine()) {
                 System.err.println("Impossible de se déclarer prêt, la consultation est déjà terminée ou null : " + consultation);
                 return false;
@@ -128,9 +127,6 @@ public class ConsultationService {
         } catch (Exception e) {
             System.err.println("Problème pour déclarer prêt pour la consultation : " + consultation);
             e.printStackTrace();
-            JpaUtil.annulerTransaction();
-        } finally {
-            JpaUtil.fermerContextePersistance();
         }
         return result;
     }
