@@ -2,6 +2,7 @@ package fr.cypher.dasi.test;
 
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Consultation;
+import fr.cypher.dasi.metier.modele.Employe;
 import fr.cypher.dasi.metier.modele.Medium;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
@@ -34,8 +35,10 @@ public class MainTest {
         ConsultationService consultationService = new ConsultationService();
         MediumService mediumService = new MediumService();
         ClientService clientService = new ClientService();
+        EmployeService employeService = new EmployeService();
         Client client = clientService.listerClients().getFirst();
         Medium medium = mediumService.listerMediums().getFirst();
+        List<Employe> employes = employeService.listerEmployes();
 
         // 2 employees Genre.FEMME available
         boolean result = consultationService.demanderConsultation(client, medium);
@@ -54,6 +57,21 @@ public class MainTest {
         for (Consultation consultation : consultations) {
             System.out.println(consultation);
         }
+
+        Employe camille = employes.get(0);
+        Employe marine = employes.get(3);
+        Employe brice = employes.get(1);
+        Consultation consultationCamille = consultationService.consulterConsultationAffectee(camille);
+        if (consultationCamille != null) System.out.println("[OK] Consultation : " + consultationCamille);
+        else System.out.println("[ERREUR] Aucune consultation pour Camille (elle doit en avoir une normalement)");
+
+        Consultation consultationMarine = consultationService.consulterConsultationAffectee(marine);
+        if (consultationMarine != null) System.out.println("[OK] Consultation : " + consultationMarine);
+        else System.out.println("[ERREUR] Aucune consultation pour Marine (elle doit en avoir une normalement)");
+
+        Consultation consultationBrice = consultationService.consulterConsultationAffectee(brice);
+        if (consultationBrice != null) System.out.println("[ERROR] Consultation (normalement aucune) : " + consultationBrice);
+        else System.out.println("[OK] Aucune consultation pour Brice (comportement attendu)");
     }
 
     public static void executer() {

@@ -36,4 +36,10 @@ public class ConsultationDAO {
         consultations.setParameter("client", client);
         return consultations.getResultList();
     }
+
+    public Consultation getConsultationAffectee(Employe employe) {
+        TypedQuery<Consultation> consultations = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Consultation c WHERE c.employe = :employe AND c.estTermine = false", Consultation.class);
+        consultations.setParameter("employe", employe);
+        return consultations.getSingleResult();
+    }
 }

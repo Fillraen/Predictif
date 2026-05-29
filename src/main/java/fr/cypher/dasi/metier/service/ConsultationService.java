@@ -14,6 +14,8 @@ import fr.cypher.dasi.metier.modele.Medium;
 import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 import fr.cypher.dasi.util.Message;
 
+import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,12 +46,22 @@ public class ConsultationService {
                     medium.getDenomination()
             );
             result = true;
+        } catch (NoResultException e) {
+            System.out.println("Aucune employé disponible.");
+            Message.envoyerNotification(client.getTelephone(),
+                "Bonjour " +
+                client.getPronomNomComplet() +
+                ". Échec de demande de consultation." +
+                medium.getDenomination() +
+                " n'est pas disponible."
+            );
+            JpaUtil.annulerTransaction();
         } catch (Exception e) {
             System.err.println("Problème lors de la demande de consultation");
             Message.envoyerNotification(client.getTelephone(),
-                    "Bonjour " +
-                            client.getPronomNomComplet() +
-                            ". Échec de demande de consultation. Veuillez réessayer plus tard."
+                "Bonjour " +
+                client.getPronomNomComplet() +
+                ". Échec de demande de consultation. Veuillez réessayer plus tard."
             );
             e.printStackTrace();
             JpaUtil.annulerTransaction();
@@ -63,8 +75,26 @@ public class ConsultationService {
         try {
             JpaUtil.creerContextePersistance();
             return consultationDAO.getConsultations(client);
+        } catch (NoResultException e) {
+            System.out.println("Aucune consultation.");
+            return new ArrayList<>();
         } catch (Exception e) {
             System.err.println("Impossible de lister l'historique de consultations");
+            e.printStackTrace();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return null;
+    }
+
+    public Consultation consulterConsultationAffectee(Employe employe) {
+        try {
+            JpaUtil.creerContextePersistance();
+            return consultationDAO.getConsultationAffectee(employe);
+        } catch (NoResultException e) {
+            System.out.println("Aucune consultation.");
+        } catch (Exception e) {
+            System.err.println("Impossible de consulter la consultation affectée.");
             e.printStackTrace();
         } finally {
             JpaUtil.fermerContextePersistance();

@@ -2,6 +2,7 @@ package fr.cypher.dasi.metier.modele;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ public class Consultation {
 
     private String commentaire;
 
-    private LocalDate date;
+    private LocalDateTime dateTime;
 
     @Column(nullable = false)
     private boolean estTermine = false;
@@ -29,9 +30,9 @@ public class Consultation {
     @JoinColumn(nullable = false)
     private Medium medium;
 
-    public Consultation(String commentaire, LocalDate date, boolean estTermine, Client client, Employe employe, Medium medium) {
+    public Consultation(String commentaire, LocalDateTime dateTime, boolean estTermine, Client client, Employe employe, Medium medium) {
         this.commentaire = commentaire;
-        this.date = date;
+        this.dateTime = dateTime;
         this.estTermine = estTermine;
         this.client = client;
         this.employe = employe;
@@ -48,12 +49,7 @@ public class Consultation {
         client.addConsultation(this);
         employe.addConsultation(this);
         medium.addConsultation(this);
-    }
-
-    public Consultation(String commentaire, LocalDate date, boolean estTermine) {
-        this.commentaire = commentaire;
-        this.date = date;
-        this.estTermine = estTermine;
+        this.dateTime = LocalDateTime.now();
     }
 
     public Consultation() {}
@@ -70,12 +66,12 @@ public class Consultation {
         this.commentaire = commentaire;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime date) {
+        this.dateTime = date;
     }
 
     public boolean isEstTermine() {
@@ -103,7 +99,7 @@ public class Consultation {
         return "Consultation{" +
                 "id=" + id +
                 ", commentaire='" + commentaire + '\'' +
-                ", date=" + date +
+                ", date=" + dateTime +
                 ", estTermine=" + estTermine +
                 ", client=" + client +
                 ", employe=" + employe +
