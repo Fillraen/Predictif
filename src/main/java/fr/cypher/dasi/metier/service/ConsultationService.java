@@ -26,10 +26,17 @@ public class ConsultationService {
         try {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
-            Employe employe = null; // TODO
+            Employe employe = consultationDAO.getAvailableEmploye(medium.getGenre());
             consultationDAO.creerConsultation(new Consultation(client, employe, medium));
             JpaUtil.validerTransaction();
-            Message.envoyerNotification(client.getTelephone(), "Nouvelle consultation TODO");
+            Message.envoyerNotification(employe.getTelephone(),
+                    "Bonjour " +
+                    employe.getPrenom() +
+                    ". Consultation requise pour " +
+                    client.getPronomNomComplet() +
+                    ". Médium à incarner : " +
+                    medium.getDenomination()
+            );
             result = true;
         } catch (Exception e) {
             System.err.println("Problème lors de la demande de consultation");

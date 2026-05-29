@@ -88,8 +88,20 @@ public class Utilisateur implements Serializable {
         return genre;
     }
 
+    public String getPronom() {
+        return switch (this.genre) {
+            case HOMME -> "M";
+            case FEMME -> "Mme";
+            default -> "Mme/M";
+        };
+    }
+
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public String getPronomNomComplet() {
+        return this.getPronom() + " " + this.getPrenom() + " " + this.getNom().toUpperCase();
     }
 
     @Override
