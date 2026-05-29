@@ -24,6 +24,12 @@ public class MediumDAO {
         return mediums.getResultList();
     }
 
+    public Medium getParId(Long id) {
+        TypedQuery<Medium> medium = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Medium c WHERE c.id = :id", Medium.class);
+        medium.setParameter("id", id);
+        return medium.getSingleResult();
+    }
+
     public List<Medium> getMediums(TypeMedium type) {
         Class<?> typeClass = switch (type) {
             case ASTROLOGUE -> Astrologue.class;

@@ -24,6 +24,12 @@ public class EmployeDAO {
         return employes.getResultList();
     }
 
+    public Employe getParId(Long id) {
+        TypedQuery<Employe> employe = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Employe c WHERE c.id = :id", Employe.class);
+        employe.setParameter("id", id);
+        return employe.getSingleResult();
+    }
+
     public void modifierEmploye(Employe employe) {
         JpaUtil.obtenirContextePersistance().merge(employe);
     }

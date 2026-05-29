@@ -36,6 +36,12 @@ public class ConsultationDAO {
         return consultations.getResultList();
     }
 
+    public Consultation getParId(Long id) {
+        TypedQuery<Consultation> consultation = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Consultation c WHERE c.id = :id", Consultation.class);
+        consultation.setParameter("id", id);
+        return consultation.getSingleResult();
+    }
+
     public Consultation getConsultationAffectee(Employe employe) {
         TypedQuery<Consultation> consultations = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Consultation c WHERE c.employe = :employe AND c.estTermine = false", Consultation.class);
         consultations.setParameter("employe", employe);
