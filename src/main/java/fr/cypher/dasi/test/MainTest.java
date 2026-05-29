@@ -1,6 +1,7 @@
 package fr.cypher.dasi.test;
 
 import fr.cypher.dasi.metier.modele.Client;
+import fr.cypher.dasi.metier.modele.Consultation;
 import fr.cypher.dasi.metier.modele.Medium;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
@@ -33,12 +34,26 @@ public class MainTest {
         ConsultationService consultationService = new ConsultationService();
         MediumService mediumService = new MediumService();
         ClientService clientService = new ClientService();
-        boolean result = consultationService.demanderConsultation(
-                clientService.listerClients().getFirst(),
-                mediumService.listerMediums().getFirst()
-        );
-        if (result) System.out.println("Consultation demandée avec succès");
-        else System.out.println("Echec de demande de consultation");
+        Client client = clientService.listerClients().getFirst();
+        Medium medium = mediumService.listerMediums().getFirst();
+
+        // 2 employees Genre.FEMME available
+        boolean result = consultationService.demanderConsultation(client, medium);
+        if (result) System.out.println("[OK] Consultation demandée avec succès");
+        else System.out.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
+
+        result = consultationService.demanderConsultation(client, medium);
+        if (result) System.out.println("[OK] Consultation demandée avec succès");
+        else System.out.println("[ERREUR] Echec de demande de consultation (pourtant employé disponible normalement)");
+
+        result = consultationService.demanderConsultation(client, medium);
+        if (result) System.out.println("[ERREUR] Consultation demandée avec succès (il n'aurait pas dû réussir, employé non disponible)");
+        else System.out.println("[OK] Echec de demande de consultation (ce qu'on cherchait, aucun employé disponible)");
+
+        List<Consultation> consultations = consultationService.consulterHistoriqueConsultations(client);
+        for (Consultation consultation : consultations) {
+            System.out.println(consultation);
+        }
     }
 
     public static void executer() {

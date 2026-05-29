@@ -23,4 +23,8 @@ public class EmployeDAO {
         TypedQuery<Employe> employes = JpaUtil.obtenirContextePersistance().createQuery("SELECT e FROM Employe e", Employe.class);
         return employes.getResultList();
     }
+
+    public void modifierEmploye(Employe employe) {
+        JpaUtil.obtenirContextePersistance().merge(employe);
+    }
 }

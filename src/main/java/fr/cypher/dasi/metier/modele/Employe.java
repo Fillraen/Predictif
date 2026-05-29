@@ -30,6 +30,14 @@ public class Employe extends Utilisateur {
         this(mail, prenom, nom, motDePasse, telephone, genre, true);
     }
 
+    public boolean isEstDisponible() {
+        return estDisponible;
+    }
+
+    public void setEstDisponible(boolean estDisponible) {
+        this.estDisponible = estDisponible;
+    }
+
     public List<Consultation> getConsultations() {
         return this.consultations;
     }

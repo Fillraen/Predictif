@@ -12,11 +12,6 @@ public class ConsultationDAO {
         JpaUtil.obtenirContextePersistance().persist(consultation);
     }
 
-    public List<Medium> getMediums() {
-        TypedQuery<Medium> mediums = JpaUtil.obtenirContextePersistance().createQuery("SELECT m FROM Medium m", Medium.class);
-        return mediums.getResultList();
-    }
-
     public Employe getAvailableEmploye(Genre genre) {
         TypedQuery<Employe> employeTypedQuery = JpaUtil
                 .obtenirContextePersistance()
@@ -34,5 +29,11 @@ public class ConsultationDAO {
         employeTypedQuery.setParameter("genre", genre);
         employeTypedQuery.setMaxResults(1);
         return employeTypedQuery.getSingleResult();
+    }
+
+    public List<Consultation> getConsultations(Client client) {
+        TypedQuery<Consultation> consultations = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Consultation c WHERE c.client = :client", Consultation.class);
+        consultations.setParameter("client", client);
+        return consultations.getResultList();
     }
 }

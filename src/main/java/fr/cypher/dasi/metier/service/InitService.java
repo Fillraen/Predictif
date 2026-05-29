@@ -56,74 +56,74 @@ public class InitService {
             )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "brice.nice@predictif.com",
-                        "Brice",
-                        "Nice",
-                        "JT'aiCassé(non)!",
-                        "0677667766",
-                        Genre.HOMME
-                )
+            new Employe(
+                "brice.nice@predictif.com",
+                "Brice",
+                "Nice",
+                "JT'aiCassé(non)!",
+                "0677667766",
+                Genre.HOMME
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "emmanuel.macaron@predictif.com",
-                        "Emmanuel",
-                        "Macaron",
-                        "NousSommesEnGuerreFOR_SURE!",
-                        "0142928100",
-                        Genre.HOMME
-                )
+            new Employe(
+                "emmanuel.macaron@predictif.com",
+                "Emmanuel",
+                "Macaron",
+                "NousSommesEnGuerreFOR_SURE!",
+                "0142928100",
+                Genre.HOMME
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "marine.lepen@predictif.com",
-                        "Marine",
-                        "Le Pen",
-                        "IlsSontDansVillesDansLesCampagnes...SUR_LES_RESEAUX_SOCIAUX!",
-                        "0112233221",
-                        Genre.FEMME
-                )
+            new Employe(
+                "marine.lepen@predictif.com",
+                "Marine",
+                "Le Pen",
+                "IlsSontDansVillesDansLesCampagnes...SUR_LES_RESEAUX_SOCIAUX!",
+                "0112233221",
+                Genre.FEMME
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "jean-luc.melenchon@predictif.com",
-                        "Jean-Luc",
-                        "Mélenchon",
-                        "LA_REPUBLIQUE_C'EST_MOI!",
-                        "0144335522",
-                        Genre.HOMME
-                )
+            new Employe(
+                "jean-luc.melenchon@predictif.com",
+                "Jean-Luc",
+                "Mélenchon",
+                "LA_REPUBLIQUE_C'EST_MOI!",
+                "0144335522",
+                Genre.HOMME
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "geraldine.tulipe@predictif.com",
-                        "Géraldine",
-                        "Tulipe",
-                        "JeSuIsPaRtOuT...&é'(§è!çà",
-                        "0133445566",
-                        Genre.NON_SPECIFIE
-                )
+            new Employe(
+                "geraldine.tulipe@predictif.com",
+                "Géraldine",
+                "Tulipe",
+                "JeSuIsPaRtOuT...&é'(§è!çà",
+                "0133445566",
+                Genre.NON_SPECIFIE
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "matthieu.maranzana@predictif.com",
-                        "Matthieu",
-                        "Maranzana",
-                        "DÉclaration et DÉfinition...",
-                        "0955664477",
-                        Genre.HOMME
-                )
+            new Employe(
+                "matthieu.maranzana@predictif.com",
+                "Matthieu",
+                "Maranzana",
+                "DÉclaration et DÉfinition...",
+                "0955664477",
+                Genre.HOMME
+            )
         );
         employeDAO.creerEmploye(
-                new Employe(
-                        "frederic.prost@predictif.com",
-                        "Frederic",
-                        "Prost",
-                        "function fun() {static int = 40; i--;} for (fun();fun();fun()) fun(); Que fait ce programme ?",
-                        "0877663344",
-                        Genre.HOMME
-                )
+            new Employe(
+                "frederic.prost@predictif.com",
+                "Frederic",
+                "Prost",
+                "function fun() {static int = 40; i--;} for (fun();fun();fun()) fun(); Que fait ce programme ?",
+                "0877663344",
+                Genre.HOMME
+            )
         );
     }
 
