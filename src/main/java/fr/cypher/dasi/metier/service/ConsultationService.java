@@ -32,6 +32,9 @@ public class ConsultationService {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             Employe employe = consultationDAO.getAvailableEmploye(medium.getGenre());
+            // TODO : décommenter pour limiter à 1 consultation en cours par client
+            // boolean dejaEnCours = consultationDAO.hasConsultationEnCours(client);
+            // if (dejaEnCours) throw new IllegalStateException("Le client a déjà une consultation en cours.");
             consultationDAO.creerConsultation(new Consultation(client, employe, medium));
             employe.setEstDisponible(false);
             employeDAO.modifierEmploye(employe);
@@ -87,6 +90,7 @@ public class ConsultationService {
         return null;
     }
 
+    
     public Consultation consulterConsultationAffectee(Employe employe) {
         try {
             JpaUtil.creerContextePersistance();
@@ -131,6 +135,21 @@ public class ConsultationService {
         return result;
     }
 
+    public Consultation recupererConsultationParId(Long id) {
+        try {
+            JpaUtil.creerContextePersistance();
+            return consultationDAO.getParId(id);
+        } catch (NoResultException e) {
+            System.err.println("[ConsultationService] Consultation introuvable : id=" + id);
+        } catch (Exception e) {
+            System.err.println("[ConsultationService] Erreur recupererConsultationParId : " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return null;
+    }
+
     public boolean terminerConsultation(Consultation consultation, String commentaire) {
         boolean result = false;
         try {
@@ -143,6 +162,9 @@ public class ConsultationService {
             consultation.setEstTermine(true);
             consultation.setCommentaire(commentaire);
             consultationDAO.modifierConsultation(consultation);
+            Employe employe = consultation.getEmploye();
+            employe.setEstDisponible(true);
+            employeDAO.modifierEmploye(employe);
             JpaUtil.validerTransaction();
             result = true;
         } catch (Exception e) {

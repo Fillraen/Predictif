@@ -34,7 +34,7 @@ public class Client extends Utilisateur implements Serializable {
     }
 
     public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
-        this(mail, prenom, nom, motDePasse, telephone, dateDeNaissance, adresse, genre);
+        this(mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse, genre);
         this.profilAstral = profilAstral;
     }
     

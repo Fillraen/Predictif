@@ -82,10 +82,6 @@ public class MainTest {
     }
 
     public static void executer() {
-        if (!(new InitService()).init()) {
-            System.out.println("[ERROR] Problème lors de l'init des données. Annulation des tests.");
-            return;
-        }
         // Registering one client to use it
         Adresse adresseAlice = new Adresse("20", "Avenue Albert Einstein", "69100", "Villeurbanne", "69");
         Client alice = new Client(

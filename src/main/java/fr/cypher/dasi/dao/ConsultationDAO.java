@@ -2,6 +2,8 @@ package fr.cypher.dasi.dao;
 
 import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.enums.Genre;
+import fr.cypher.dasi.metier.modele.stat.StatEmploye;
+import fr.cypher.dasi.metier.modele.stat.StatMedium;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -50,5 +52,33 @@ public class ConsultationDAO {
 
     public void modifierConsultation(Consultation consultation) {
         JpaUtil.obtenirContextePersistance().merge(consultation);
+    }
+
+    // TODO : décommenter (avec la condition dans ConsultationService.demanderConsultation) pour limiter à 1 consultation en cours par client
+    // public boolean hasConsultationEnCours(Client client) {
+    //     Long count = JpaUtil.obtenirContextePersistance()
+    //             .createQuery("SELECT COUNT(c) FROM Consultation c WHERE c.client = :client AND c.estTermine = false", Long.class)
+    //             .setParameter("client", client)
+    //             .getSingleResult();
+    //     return count > 0;
+    // }
+
+    public List<StatMedium> getNombreConsultationsParMedium() {
+        return JpaUtil.obtenirContextePersistance()
+                .createQuery("SELECT NEW fr.cypher.dasi.metier.modele.stat.StatMedium(c.medium, COUNT(c)) FROM Consultation c GROUP BY c.medium", StatMedium.class)
+                .getResultList();
+    }
+
+    public List<StatEmploye> getNombreClientsParEmploye() {
+        return JpaUtil.obtenirContextePersistance()
+                .createQuery("SELECT NEW fr.cypher.dasi.metier.modele.stat.StatEmploye(c.employe, COUNT(DISTINCT c.client)) FROM Consultation c GROUP BY c.employe", StatEmploye.class)
+                .getResultList();
+    }
+
+    public List<StatMedium> getMediumsPopulaires(int limit) {
+        return JpaUtil.obtenirContextePersistance()
+                .createQuery("SELECT NEW fr.cypher.dasi.metier.modele.stat.StatMedium(c.medium, COUNT(c)) FROM Consultation c GROUP BY c.medium ORDER BY COUNT(c) DESC", StatMedium.class)
+                .setMaxResults(limit)
+                .getResultList();
     }
 }

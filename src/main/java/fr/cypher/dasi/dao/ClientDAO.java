@@ -5,6 +5,8 @@
 package fr.cypher.dasi.dao;
 
 import fr.cypher.dasi.metier.modele.Client;
+import fr.cypher.dasi.metier.modele.stat.StatDepartement;
+
 import java.util.List;
 import javax.persistence.TypedQuery;
 
@@ -26,5 +28,11 @@ public class ClientDAO {
         TypedQuery<Client> client = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Client c WHERE c.id = :id", Client.class);
         client.setParameter("id", id);
         return client.getSingleResult();
+    }
+
+    public List<StatDepartement> getRepartitionGeographique() {
+        return JpaUtil.obtenirContextePersistance()
+                .createQuery("SELECT NEW fr.cypher.dasi.metier.modele.stat.StatDepartement(c.adresse.codeDepartement, COUNT(c)) FROM Client c GROUP BY c.adresse.codeDepartement", StatDepartement.class)
+                .getResultList();
     }
 }

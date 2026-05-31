@@ -6,7 +6,6 @@ import fr.cypher.dasi.metier.modele.enums.Genre;
 import fr.cypher.dasi.metier.service.AuthService;
 import fr.cypher.dasi.metier.service.ClientService;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,26 +15,38 @@ public class Inscription {
     private static final ClientService clientService = new ClientService();
 
     public static void executer() {
-
-        System.out.println("=== TEST 1 : inscription réussie ===");
-        Adresse adresseAlice = new Adresse("20", "Avenue Albert Einstein", "69100", "Villeurbanne", "69");
-        Client alice = new Client(
-                "alice@predictif.fr", "Alice", "motdepasse123", "0600000001",
-                "Dupont", LocalDate.of(1995, 12, 10), adresseAlice, Genre.FEMME
-        );
-        boolean res1 = authService.Inscrire(alice);
-        System.out.println("Résultat : " + (res1 ? "OK - client inscrit" : "ECHEC"));
-        listerClients();
-
+        System.out.println("[DEBUT SCENARIO] Inscription");
+        inscriptionOK();
         System.out.println();
-        System.out.println("=== TEST 2 : double inscription (même mail) ===");
-        Adresse adresseDoublon = new Adresse("5", "Rue de la Paix", "75001", "Paris", "75");
-        Client aliceDoublon = new Client(
-                "alice@predictif.fr", "Alice", "autreMotDePasse", "0600000002",
-                "Martin", LocalDate.of(1990, 5, 20), adresseDoublon, Genre.FEMME
+        inscriptionDoublon();
+        System.out.println("[FIN SCENARIO] Inscription");
+    }
+
+    private static void inscriptionOK() {
+        System.out.println("=== TEST 1 : inscription réussie ===");
+        Adresse adresse = new Adresse("12", "Rue des Lilas", "69003", "Lyon", "69");
+        Client bob = new Client(
+                "bob.martin@free.fr", "Bob", "Martin", "Bob!2025",
+                "0611223344", Genre.HOMME,
+                LocalDate.of(1988, 7, 15),
+                adresse, null
         );
-        boolean res2 = authService.Inscrire(aliceDoublon);
-        System.out.println("Résultat : " + (res2 ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));
+        boolean res = authService.Inscrire(bob);
+        System.out.println("Résultat : " + (res ? "OK - client inscrit" : "ECHEC"));
+        listerClients();
+    }
+
+    private static void inscriptionDoublon() {
+        System.out.println("=== TEST 2 : double inscription (mail déjà en base) ===");
+        Adresse adresse = new Adresse("42", "Rue Lecourbe", "75015", "Paris", "75");
+        Client aliceDoublon = new Client(
+                "alice.pascal@free.fr", "Alice", "Pascal", "autreMotDePasse",
+                "0600000099", Genre.FEMME,
+                LocalDate.of(1995, 2, 5),
+                adresse, null
+        );
+        boolean res = authService.Inscrire(aliceDoublon);
+        System.out.println("Résultat : " + (res ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));
         listerClients();
     }
 
