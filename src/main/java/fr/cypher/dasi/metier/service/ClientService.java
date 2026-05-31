@@ -17,26 +17,6 @@ import java.util.List;
 public class ClientService {
     private final ClientDAO clientDao = new ClientDAO();
 
-    public boolean inscrireClient(Client client) {
-        boolean result = false;
-        try {
-            JpaUtil.creerContextePersistance();
-            JpaUtil.ouvrirTransaction();
-            clientDao.creerClient(client);
-            JpaUtil.validerTransaction();
-            Message.envoyerMail("eric.guerin@67.fr", client.getMail(), "Bvn dans le clan", "<h1>SIX SEVEEEEEEEEEEN</h1>");
-            result = true;
-        } catch (Exception e) {
-            System.err.println("Problème lors de l'inscription");
-            e.printStackTrace();
-            JpaUtil.annulerTransaction();
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        
-        return result;
-    }
-
     public List<Client> listerClients() {
         try {
             JpaUtil.creerContextePersistance();
