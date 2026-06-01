@@ -11,19 +11,6 @@ import java.util.List;
 public class MediumService {
     private final MediumDAO mediumDao = new MediumDAO();
 
-    public List<Medium> listerMediums() {
-        try {
-            JpaUtil.creerContextePersistance();
-            return mediumDao.getMediums();
-        } catch (Exception e) {
-            System.err.println("Impossible de lister les médiums");
-            e.printStackTrace();
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return null;
-    }
-
     public List<Medium> listerMediums(TypeMedium type) {
         try {
             JpaUtil.creerContextePersistance();

@@ -19,25 +19,25 @@ public class MediumDAO {
         JpaUtil.obtenirContextePersistance().persist(medium);
     }
 
-    public List<Medium> getMediums() {
-        TypedQuery<Medium> mediums = JpaUtil.obtenirContextePersistance().createQuery("SELECT m FROM Medium m", Medium.class);
-        return mediums.getResultList();
+    public List<Medium> getMediums(TypeMedium type) {
+        if (type == null)
+            return JpaUtil.obtenirContextePersistance()
+                    .createQuery("SELECT m FROM Medium m", Medium.class)
+                    .getResultList();
+        Class<?> typeClass = switch (type) {
+            case ASTROLOGUE   -> Astrologue.class;
+            case CARTOMANCIEN -> Cartomancien.class;
+            case SPIRITE      -> Spirite.class;
+        };
+        return JpaUtil.obtenirContextePersistance()
+                .createQuery("SELECT m FROM Medium m WHERE TYPE(m) = :type", Medium.class)
+                .setParameter("type", typeClass)
+                .getResultList();
     }
 
     public Medium getParId(Long id) {
         TypedQuery<Medium> medium = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Medium c WHERE c.id = :id", Medium.class);
         medium.setParameter("id", id);
         return medium.getSingleResult();
-    }
-
-    public List<Medium> getMediums(TypeMedium type) {
-        Class<?> typeClass = switch (type) {
-            case ASTROLOGUE -> Astrologue.class;
-            case CARTOMANCIEN -> Cartomancien.class;
-            case SPIRITE -> Spirite.class;
-        };
-        TypedQuery<Medium> mediums = JpaUtil.obtenirContextePersistance().createQuery("SELECT m FROM Medium m WHERE TYPE(m) = :type", Medium.class);
-        mediums.setParameter("type", typeClass);
-        return mediums.getResultList();
     }
 }

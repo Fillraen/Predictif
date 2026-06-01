@@ -90,7 +90,6 @@ public class ConsultationService {
         return null;
     }
 
-    
     public Consultation consulterConsultationAffectee(Employe employe) {
         try {
             JpaUtil.creerContextePersistance();

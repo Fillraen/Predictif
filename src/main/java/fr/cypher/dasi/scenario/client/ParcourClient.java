@@ -71,7 +71,7 @@ public class ParcourClient {
 
     private static void listerMediums() {
         System.out.println("=== ÉTAPE 3 : liste de tous les médiums ===");
-        List<Medium> mediums = mediumService.listerMediums();
+        List<Medium> mediums = mediumService.listerMediums(null);
         if (mediums == null || mediums.isEmpty()) {
             System.out.println("Aucun médium disponible.");
             return;
