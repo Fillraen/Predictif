@@ -1,11 +1,6 @@
 package fr.cypher.dasi.metier.modele;
 
 import java.io.Serializable;
-import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 public class Prediction implements Serializable {
     private String amour;

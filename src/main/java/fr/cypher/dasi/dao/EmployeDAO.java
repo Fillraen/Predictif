@@ -5,7 +5,6 @@
 package fr.cypher.dasi.dao;
 
 import fr.cypher.dasi.metier.modele.*;
-import fr.cypher.dasi.metier.modele.enums.TypeMedium;
 
 import javax.persistence.TypedQuery;
 import java.util.List;

@@ -2,8 +2,8 @@ package fr.cypher.dasi;
 
 import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.scenario.client.Inscription;
-import fr.cypher.dasi.scenario.client.ParcourClient;
-import fr.cypher.dasi.scenario.employe.ParcourEmploye;
+import fr.cypher.dasi.scenario.client.ParcoursClient;
+import fr.cypher.dasi.scenario.employe.ParcoursEmploye;
 import fr.cypher.dasi.scenario.utilisateur.Connexion;
 import fr.cypher.dasi.test.MainTest;
 
@@ -33,13 +33,13 @@ public class Main {
         System.out.println("========================================");
         System.out.println();
 
-        ParcourEmploye.executer();
+        ParcoursEmploye.executer();
 
         System.out.println();
         System.out.println("========================================");
         System.out.println();
 
-        ParcourClient.executer();
+        ParcoursClient.executer();
 
         System.out.println();
         System.out.println("========================================");

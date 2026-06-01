@@ -11,28 +11,28 @@ import fr.cypher.dasi.metier.service.MediumService;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ParcourClient {
+public class ParcoursClient {
 
     private static final AuthService         authService         = new AuthService();
     private static final MediumService       mediumService       = new MediumService();
     private static final ConsultationService consultationService = new ConsultationService();
 
     public static void executer() {
-        System.out.println("[DEBUT SCENARIO] ParcourClient");
+        System.out.println("[DEBUT SCENARIO] ParcoursClient");
 
         boolean inscrit = inscription();
-        if (!inscrit) { System.out.println("[FIN SCENARIO] ParcourClient (abandon)"); return; }
+        if (!inscrit) { System.out.println("[FIN SCENARIO] ParcoursClient (abandon)"); return; }
         System.out.println();
 
-        Client connecte = connexion("lea.dubois@gmail.com", "Lea!2025");
-        if (connecte == null) { System.out.println("[FIN SCENARIO] ParcourClient (abandon)"); return; }
+        Client connecte = connexionLea();
+        if (connecte == null) { System.out.println("[FIN SCENARIO] ParcoursClient (abandon)"); return; }
         System.out.println();
 
         listerMediums();
         System.out.println();
 
-        Medium mediumChoisi = filtrerParType(TypeMedium.CARTOMANCIEN);
-        if (mediumChoisi == null) { System.out.println("[FIN SCENARIO] ParcourClient (abandon)"); return; }
+        Medium mediumChoisi = filtrerParCartomancien();
+        if (mediumChoisi == null) { System.out.println("[FIN SCENARIO] ParcoursClient (abandon)"); return; }
         System.out.println();
 
         demanderConsultation(connecte, mediumChoisi);
@@ -40,7 +40,7 @@ public class ParcourClient {
 
         voirHistorique(connecte);
 
-        System.out.println("[FIN SCENARIO] ParcourClient");
+        System.out.println("[FIN SCENARIO] ParcoursClient");
     }
 
     private static boolean inscription() {
@@ -57,9 +57,9 @@ public class ParcourClient {
         return ok;
     }
 
-    private static Client connexion(String mail, String mdp) {
+    private static Client connexionLea() {
         System.out.println("=== ÉTAPE 2 : connexion ===");
-        Utilisateur u = authService.Authentifier(mail, mdp);
+        Utilisateur u = authService.Authentifier("lea.dubois@gmail.com", "Lea!2025");
         if (u instanceof Client c) {
             System.out.println("Connecté : " + c.getPronomNomComplet()
                     + "\n  Profil astral : " + c.getProfilAstral());
@@ -80,15 +80,15 @@ public class ParcourClient {
                 + m.getDenomination() + " : " + m.getPresentation()));
     }
 
-    private static Medium filtrerParType(TypeMedium type) {
-        System.out.println("=== ÉTAPE 4 : filtre par type — " + type + " ===");
-        List<Medium> mediums = mediumService.listerMediums(type);
+    private static Medium filtrerParCartomancien() {
+        System.out.println("=== ÉTAPE 4 : filtre par type — " + TypeMedium.CARTOMANCIEN + " ===");
+        List<Medium> mediums = mediumService.listerMediums(TypeMedium.CARTOMANCIEN);
         if (mediums == null || mediums.isEmpty()) {
-            System.err.println("ECHEC - aucun médium de type " + type);
+            System.err.println("ECHEC - aucun médium de type " + TypeMedium.CARTOMANCIEN);
             return null;
         }
         mediums.forEach(m -> System.out.println("  - " + m.getDenomination() + " : " + m.getPresentation()));
-        Medium choisi = mediums.get(0);
+        Medium choisi = mediums.getFirst();
         System.out.println("Médium sélectionné : " + choisi.getDenomination());
         return choisi;
     }

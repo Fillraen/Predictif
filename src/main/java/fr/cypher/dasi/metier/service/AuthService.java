@@ -65,7 +65,7 @@ public class AuthService {
             JpaUtil.ouvrirTransaction();
             List<Utilisateur> utilisateurs = utilisateurDao.getAllWithFilter(null, null, mail, null);
             if (!utilisateurs.isEmpty()) {
-                u = utilisateurs.get(0);
+                u = utilisateurs.getFirst();
                 if (!u.getMotDePasse().equals(motDePasse)) {
                     u = null;
                 }

@@ -12,21 +12,21 @@ import fr.cypher.dasi.scenario.stats.PageStats;
 
 import java.util.List;
 
-public class ParcourEmploye {
+public class ParcoursEmploye {
 
     private static final AuthService        authService        = new AuthService();
     private static final ConsultationService consultationService = new ConsultationService();
     private static final EmployeService     employeService     = new EmployeService();
 
     public static void executer() {
-        System.out.println("[DEBUT SCENARIO] ParcourEmploye");
+        System.out.println("[DEBUT SCENARIO] ParcoursEmploye");
 
         Employe camille = connexionEmploye();
-        if (camille == null) { System.out.println("[FIN SCENARIO] ParcourEmploye (abandon)"); return; }
+        if (camille == null) { System.out.println("[FIN SCENARIO] ParcoursEmploye (abandon)"); return; }
         System.out.println();
 
         Consultation consultation = voirConsultationAffectee(camille);
-        if (consultation == null) { System.out.println("[FIN SCENARIO] ParcourEmploye (abandon)"); return; }
+        if (consultation == null) { System.out.println("[FIN SCENARIO] ParcoursEmploye (abandon)"); return; }
         System.out.println();
 
         voirProfilClient(consultation);
@@ -46,7 +46,7 @@ public class ParcourEmploye {
 
         PageStats.executer();
 
-        System.out.println("[FIN SCENARIO] ParcourEmploye");
+        System.out.println("[FIN SCENARIO] ParcoursEmploye");
     }
 
     private static Employe connexionEmploye() {
