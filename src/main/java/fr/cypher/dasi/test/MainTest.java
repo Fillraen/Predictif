@@ -12,7 +12,7 @@ import java.util.List;
 public class MainTest {
     static void mediums() {
         MediumService mediumService = new MediumService();
-        List<Medium> mediums = mediumService.listerMediums();
+        List<Medium> mediums = mediumService.listerMediums(null);
         for (Medium medium : mediums) {
             System.out.println(medium);
         }
@@ -34,7 +34,7 @@ public class MainTest {
         ClientService clientService = new ClientService();
         EmployeService employeService = new EmployeService();
         Client client = clientService.listerClients().getFirst();
-        Medium medium = mediumService.listerMediums().getFirst();
+        Medium medium = mediumService.listerMediums(null).getFirst();
         List<Employe> employes = employeService.listerEmployes();
 
         // 2 employees Genre.FEMME available

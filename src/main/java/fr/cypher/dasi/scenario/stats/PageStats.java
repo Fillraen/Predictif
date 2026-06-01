@@ -29,7 +29,7 @@ public class PageStats {
         if (stats.isEmpty()) {
             System.out.println("  Aucune donnée.");
         } else {
-            stats.forEach(s -> System.out.println("  " + s.medium().getDenomination() + " : " + s.nombre()));
+            stats.forEach(s -> System.out.println("  " + s.getMedium().getDenomination() + " : " + s.getNombre()));
         }
     }
 
@@ -39,7 +39,7 @@ public class PageStats {
         if (stats.isEmpty()) {
             System.out.println("  Aucune donnée.");
         } else {
-            stats.forEach(s -> System.out.println("  " + s.employe().getPrenom() + " " + s.employe().getNom() + " : " + s.nombre() + " client(s)"));
+            stats.forEach(s -> System.out.println("  " + s.getEmploye().getPrenom() + " " + s.getEmploye().getNom() + " : " + s.getNombre() + " client(s)"));
         }
     }
 
@@ -51,7 +51,7 @@ public class PageStats {
         } else {
             int rang = 1;
             for (StatMedium s : stats) {
-                System.out.println("  #" + rang++ + " " + s.medium().getDenomination() + " (" + s.nombre() + " consultation(s))");
+                System.out.println("  #" + rang++ + " " + s.getMedium().getDenomination() + " (" + s.getNombre() + " consultation(s))");
             }
         }
     }
@@ -62,7 +62,7 @@ public class PageStats {
         if (stats.isEmpty()) {
             System.out.println("  Aucune donnée.");
         } else {
-            stats.forEach(s -> System.out.println("  Département " + s.codeDepartement() + " : " + s.nombre() + " client(s)"));
+            stats.forEach(s -> System.out.println("  Département " + s.getCodeDepartement() + " : " + s.getNombre() + " client(s)"));
         }
     }
 }
