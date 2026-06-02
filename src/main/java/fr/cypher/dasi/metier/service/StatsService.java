@@ -54,7 +54,7 @@ public class StatsService {
         return Collections.emptyList();
     }
 
-    public List<StatDepartement> listerRepartitionGeographiqueClients() {
+        public List<StatDepartement> listerRepartitionGeographiqueClients() {
         try {
             JpaUtil.creerContextePersistance();
             return clientDAO.getRepartitionGeographique();

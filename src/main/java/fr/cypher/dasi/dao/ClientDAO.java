@@ -25,9 +25,7 @@ public class ClientDAO {
     }
 
     public Client getParId(Long id) {
-        TypedQuery<Client> client = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Client c WHERE c.id = :id", Client.class);
-        client.setParameter("id", id);
-        return client.getSingleResult();
+        return JpaUtil.obtenirContextePersistance().find(Client.class, id);
     }
 
     public List<StatDepartement> getRepartitionGeographique() {

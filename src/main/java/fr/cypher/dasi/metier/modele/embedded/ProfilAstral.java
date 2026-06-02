@@ -4,10 +4,10 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class ProfilAstral {
-    protected String animalTotem;
-    protected String signeZodiac;
-    protected String couleurBonheur;
-    protected String signeChinois;
+    private String animalTotem;
+    private String signeZodiac;
+    private String couleurBonheur;
+    private String signeChinois;
 
     public ProfilAstral(String animalTotem, String signeZodiac, String couleurBonheur, String signeChinois) {
         this.animalTotem = animalTotem;
