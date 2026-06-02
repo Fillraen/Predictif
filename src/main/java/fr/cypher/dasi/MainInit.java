@@ -96,14 +96,6 @@ public class MainInit {
             clientDAO.creerClient(alice);
 
             // ── Consultations ──────────────────────────────────────────────────────
-            // En cours : Alice / Camille / Gwenaëlle
-            consultDAO.creerConsultation(new Consultation(
-                    "",
-                    LocalDateTime.of(2025, 5, 28, 10, 0),
-                    true,
-                    alice, camille, gwenaelle
-            ));
-
             // Terminée : Alice / Brice / Professeur Tran
             consultDAO.creerConsultation(new Consultation(
                     "Excellente séance, le client était très réceptif aux prédictions.",
@@ -170,14 +162,6 @@ public class MainInit {
                     LocalDateTime.of(2025, 5, 5, 10, 0),
                     true,
                     marc, brice, gwenaelle
-            ));
-
-            // Terminée : Marc / Camille / Serena
-            consultDAO.creerConsultation(new Consultation(
-                    "La lecture des astres confirme une période de transition professionnelle.",
-                    LocalDateTime.of(2025, 4, 1, 15, 0),
-                    true,
-                    marc, camille, serena
             ));
 
             JpaUtil.validerTransaction();
