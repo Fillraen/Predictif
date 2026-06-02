@@ -31,7 +31,7 @@ public class Inscription {
                 LocalDate.of(1988, 7, 15),
                 adresse, null
         );
-        boolean res = authService.Inscrire(bob);
+        boolean res = authService.inscrire(bob);
         System.out.println("Résultat : " + (res ? "OK - client inscrit" : "ECHEC"));
         listerClients();
     }
@@ -45,7 +45,7 @@ public class Inscription {
                 LocalDate.of(1995, 2, 5),
                 adresse, null
         );
-        boolean res = authService.Inscrire(aliceDoublon);
+        boolean res = authService.inscrire(aliceDoublon);
         System.out.println("Résultat : " + (res ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));
         listerClients();
     }

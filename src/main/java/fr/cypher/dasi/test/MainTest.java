@@ -93,7 +93,7 @@ public class MainTest {
                 "alice@predictif.fr", "Alice", "motdepasse123", "0600000001",
                 "Dupont", LocalDate.of(1995, 12, 10), adresseAlice, Genre.FEMME
         );
-        new AuthService().Inscrire(alice);
+        new AuthService().inscrire(alice);
         mediums();
         consultations();
     }

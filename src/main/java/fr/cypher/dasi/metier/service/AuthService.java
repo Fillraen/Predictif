@@ -16,7 +16,7 @@ public class AuthService {
     private final ClientDAO clientDao = new ClientDAO();
     private final UtilisateurDAO utilisateurDao = new UtilisateurDAO();
 
-    public boolean Inscrire(Client c){
+    public boolean inscrire(Client c){
         boolean succes = false;
         String raisonEchec = null;
 
@@ -58,7 +58,7 @@ public class AuthService {
         return succes;
     }
 
-    public Utilisateur Authentifier(String mail, String motDePasse){
+    public Utilisateur authentifier(String mail, String motDePasse){
         Utilisateur u = null;
         try {
             JpaUtil.creerContextePersistance();

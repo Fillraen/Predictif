@@ -52,14 +52,14 @@ public class ParcoursClient {
                 LocalDate.of(1998, 4, 17),
                 adresse, null
         );
-        boolean ok = authService.Inscrire(lea);
+        boolean ok = authService.inscrire(lea);
         System.out.println("Résultat : " + (ok ? "OK - inscrite, profil astral calculé" : "ECHEC"));
         return ok;
     }
 
     private static Client connexionLea() {
         System.out.println("=== ÉTAPE 2 : connexion ===");
-        Utilisateur u = authService.Authentifier("lea.dubois@gmail.com", "Lea!2025");
+        Utilisateur u = authService.authentifier("lea.dubois@gmail.com", "Lea!2025");
         if (u instanceof Client c) {
             System.out.println("Connecté : " + c.getPronomNomComplet()
                     + "\n  Profil astral : " + c.getProfilAstral());

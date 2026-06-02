@@ -51,7 +51,7 @@ public class ParcoursEmploye {
 
     private static Employe connexionEmploye() {
         System.out.println("=== ÉTAPE 1 : connexion employé ===");
-        Utilisateur u = authService.Authentifier("camille.martin@predictif.com", "CamilleM!2025");
+        Utilisateur u = authService.authentifier("camille.martin@predictif.com", "CamilleM!2025");
         if (u instanceof Employe e) {
             System.out.println("Connecté : " + e.getPrenom() + " " + e.getNom()
                     + " | disponible : " + e.isEstDisponible());
