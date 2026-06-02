@@ -49,6 +49,7 @@ public class Consultation {
         employe.addConsultation(this);
         medium.addConsultation(this);
         this.dateTime = LocalDateTime.now();
+        this.commentaire = "";
     }
 
     public Consultation() {}

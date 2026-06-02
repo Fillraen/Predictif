@@ -1,5 +1,7 @@
 package fr.cypher.dasi.test;
 
+import fr.cypher.dasi.MainInit;
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
@@ -56,14 +58,17 @@ public class MainTest {
         }
 
         Employe camille = employes.get(0);
-        Employe marine = employes.get(3);
-        Employe brice = employes.get(1);
+        Employe marine = employes.get(1);
+        Employe brice = employes.get(3);
+
         Consultation consultationCamille = consultationService.consulterConsultationAffectee(camille);
         if (consultationCamille != null) System.out.println("[OK] Consultation : " + consultationCamille);
         else System.err.println("[ERREUR] Aucune consultation pour Camille (elle doit en avoir une normalement)");
+
         Consultation consultationMarine = consultationService.consulterConsultationAffectee(marine);
         if (consultationMarine != null) System.out.println("[OK] Consultation : " + consultationMarine);
         else System.err.println("[ERREUR] Aucune consultation pour Marine (elle doit en avoir une normalement)");
+
         Consultation consultationBrice = consultationService.consulterConsultationAffectee(brice);
         if (consultationBrice != null) System.err.println("[ERREUR] Consultation (normalement aucune) : " + consultationBrice);
         else System.out.println("[OK] Aucune consultation pour Brice (comportement attendu)");
@@ -91,5 +96,20 @@ public class MainTest {
         new AuthService().Inscrire(alice);
         mediums();
         consultations();
+    }
+
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        if (!MainInit.executer()) {
+            System.err.println("[Main] Initialisation échouée, arrêt.");
+            JpaUtil.fermerFabriquePersistance();
+            return;
+        }
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
     }
 }

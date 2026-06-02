@@ -98,9 +98,9 @@ public class MainInit {
             // ── Consultations ──────────────────────────────────────────────────────
             // En cours : Alice / Camille / Gwenaëlle
             consultDAO.creerConsultation(new Consultation(
-                    null,
+                    "",
                     LocalDateTime.of(2025, 5, 28, 10, 0),
-                    false,
+                    true,
                     alice, camille, gwenaelle
             ));
 
