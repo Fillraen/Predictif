@@ -27,6 +27,9 @@ public class EmployeService {
 
     public Prediction demanderInspiration(ProfilAstral profilAstral, int scoreAmour, int scoreSante, int scoreTravail) {
         try {
+            scoreAmour = Math.clamp(scoreAmour, 1, 4);
+            scoreSante = Math.clamp(scoreSante, 1, 4);
+            scoreTravail = Math.clamp(scoreTravail, 1, 4);
             return IfAstroNetApi.obtenirPredictions(profilAstral.getCouleurBonheur(), profilAstral.getAnimalTotem(), scoreAmour, scoreSante, scoreTravail);
         } catch (Exception e) {
             System.err.println("[AuthService] Impossible de récupérer les prédictions : " + e.getMessage());
