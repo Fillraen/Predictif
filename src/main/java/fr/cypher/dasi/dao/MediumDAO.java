@@ -36,8 +36,6 @@ public class MediumDAO {
     }
 
     public Medium getParId(Long id) {
-        TypedQuery<Medium> medium = JpaUtil.obtenirContextePersistance().createQuery("SELECT c FROM Medium c WHERE c.id = :id", Medium.class);
-        medium.setParameter("id", id);
-        return medium.getSingleResult();
+        return JpaUtil.obtenirContextePersistance().find(Medium.class, id);
     }
 }

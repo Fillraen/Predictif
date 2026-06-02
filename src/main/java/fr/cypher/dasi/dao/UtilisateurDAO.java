@@ -31,4 +31,8 @@ public class UtilisateurDAO {
 
         return query.getResultList();
     }
+
+    public Utilisateur getParId(Long id) {
+        return JpaUtil.obtenirContextePersistance().find(Utilisateur.class, id);
+    }
 }
