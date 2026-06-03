@@ -44,6 +44,9 @@ public class ParcoursEmploye {
         verifierSauvegarde(consultation);
         System.out.println();
 
+        verifierAucuneConsultationRestante(camille);
+        System.out.println();
+
         PageStats.executer();
 
         System.out.println("[FIN SCENARIO] ParcoursEmploye");
@@ -141,6 +144,17 @@ public class ParcoursEmploye {
                     + "\n  Commentaire: \"" + saved.getCommentaire() + "\"");
         } else {
             System.err.println("ECHEC - consultation introuvable en base");
+        }
+    }
+
+    private static void verifierAucuneConsultationRestante(Employe employe) {
+        System.out.println("=== ÉTAPE 8 : vérification aucune consultation restante ===");
+        Consultation restante = consultationService.consulterConsultationAffectee(employe);
+        if (restante == null) {
+            System.out.println("OK - aucune consultation active restante pour " + employe.getPrenom());
+        } else {
+            System.err.println("ANOMALIE - une consultation est encore affectée : id=" + restante.getId()
+                    + " | client=" + restante.getClient().getPronomNomComplet());
         }
     }
 }
