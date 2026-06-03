@@ -32,9 +32,6 @@ public class ConsultationService {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             Employe employe = consultationDAO.getAvailableEmploye(medium.getGenre());
-            // Optionnel : décommenter pour limiter à 1 consultation en cours par client
-            // boolean dejaEnCours = consultationDAO.hasConsultationEnCours(client);
-            // if (dejaEnCours) throw new IllegalStateException("Le client a déjà une consultation en cours.");
             consultationDAO.creerConsultation(new Consultation(client, employe, medium));
             employe.setEstDisponible(false);
             employeDAO.modifierEmploye(employe);

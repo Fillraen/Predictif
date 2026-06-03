@@ -1,5 +1,6 @@
 package fr.cypher.dasi.scenario.client;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.*;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
@@ -16,6 +17,14 @@ public class ParcoursClient {
     private static final AuthService         authService         = new AuthService();
     private static final MediumService       mediumService       = new MediumService();
     private static final ConsultationService consultationService = new ConsultationService();
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
+    }
 
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] ParcoursClient");
@@ -50,7 +59,7 @@ public class ParcoursClient {
                 "lea.dubois@gmail.com", "Léa", "Dubois", "Lea!2025",
                 "0622334455", Genre.FEMME,
                 LocalDate.of(1998, 4, 17),
-                adresse, null
+                adresse
         );
         boolean ok = authService.inscrire(lea);
         System.out.println("Résultat : " + (ok ? "OK - inscrite, profil astral calculé" : "ECHEC"));

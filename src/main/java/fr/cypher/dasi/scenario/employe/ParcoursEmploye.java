@@ -1,5 +1,6 @@
 package fr.cypher.dasi.scenario.employe;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Consultation;
 import fr.cypher.dasi.metier.modele.Employe;
@@ -17,6 +18,14 @@ public class ParcoursEmploye {
     private static final AuthService        authService        = new AuthService();
     private static final ConsultationService consultationService = new ConsultationService();
     private static final EmployeService     employeService     = new EmployeService();
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
+    }
 
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] ParcoursEmploye");

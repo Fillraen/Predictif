@@ -52,15 +52,6 @@ public class ConsultationDAO {
         JpaUtil.obtenirContextePersistance().merge(consultation);
     }
 
-    // TODO : décommenter (avec la condition dans ConsultationService.demanderConsultation) pour limiter à 1 consultation en cours par client
-    // public boolean hasConsultationEnCours(Client client) {
-    //     Long count = JpaUtil.obtenirContextePersistance()
-    //             .createQuery("SELECT COUNT(c) FROM Consultation c WHERE c.client = :client AND c.estTermine = false", Long.class)
-    //             .setParameter("client", client)
-    //             .getSingleResult();
-    //     return count > 0;
-    // }
-
     public List<StatMedium> getNombreConsultationsParMedium() {
         return JpaUtil.obtenirContextePersistance()
                 .createQuery("SELECT NEW fr.cypher.dasi.metier.modele.stat.StatMedium(c.medium, COUNT(c)) FROM Consultation c GROUP BY c.medium", StatMedium.class)

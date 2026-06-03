@@ -1,9 +1,18 @@
 package fr.cypher.dasi.scenario;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.scenario.client.ParcoursClient;
 import fr.cypher.dasi.scenario.employe.ParcoursEmploye;
 
 public class ParcoursBoutEnBout {
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
+    }
 
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] ParcoursBoutEnBout");

@@ -18,10 +18,8 @@ public class AuthService {
 
     public boolean inscrire(Client c){
         boolean succes = false;
-        String raisonEchec = null;
 
         if (DataGouvApi.obtenirCoordonnees(c.getAdresse()) == null) {
-            raisonEchec = "l’adresse fournie est introuvable.\nMerci de vérifier votre adresse et de recommencer.";
             System.err.println("[AuthService] Inscription refusée : adresse introuvable (" + c.getAdresse() + ")");
         } else {
             try {
@@ -32,7 +30,6 @@ public class AuthService {
                 JpaUtil.validerTransaction();
                 succes = true;
             } catch (Exception e) {
-                raisonEchec = "une erreur technique s’est produite.\nMerci de recommencer ultérieurement.";
                 System.err.println("[AuthService] Échec inscription : " + e.getMessage());
                 e.printStackTrace();
                 JpaUtil.annulerTransaction();
@@ -62,21 +59,18 @@ public class AuthService {
         Utilisateur u = null;
         try {
             JpaUtil.creerContextePersistance();
-            JpaUtil.ouvrirTransaction();
-            List<Utilisateur> utilisateurs = utilisateurDao.getAllWithFilter(null, null, mail, null);
+            List<Utilisateur> utilisateurs = utilisateurDao.getAllByMail(mail);
             if (!utilisateurs.isEmpty()) {
                 u = utilisateurs.getFirst();
                 if (!u.getMotDePasse().equals(motDePasse)) {
                     u = null;
                 }
             }
-            JpaUtil.validerTransaction();
         } catch (NoResultException e) {
             System.err.println("[AuthService] Authentification échouée : utilisateur non trouvé");
         } catch (Exception e) {
             System.err.println("bug");
             e.printStackTrace();
-            JpaUtil.annulerTransaction();
         } finally {
             JpaUtil.fermerContextePersistance();
         }

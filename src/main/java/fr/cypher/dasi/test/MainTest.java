@@ -90,8 +90,8 @@ public class MainTest {
         // Registering one client to use it
         Adresse adresseAlice = new Adresse("20", "Avenue Albert Einstein", "69100", "Villeurbanne", "69");
         Client alice = new Client(
-                "alice@predictif.fr", "Alice", "motdepasse123", "0600000001",
-                "Dupont", LocalDate.of(1995, 12, 10), adresseAlice, Genre.FEMME
+                "alice@predictif.fr", "Alice", "Dupont", "motdepasse123", "0600000001",
+                Genre.FEMME, LocalDate.of(1995, 12, 10), adresseAlice
         );
         new AuthService().inscrire(alice);
         mediums();
@@ -101,12 +101,6 @@ public class MainTest {
 
     static void main(String[] args) {
         JpaUtil.creerFabriquePersistance();
-
-        if (!MainInit.executer()) {
-            System.err.println("[Main] Initialisation échouée, arrêt.");
-            JpaUtil.fermerFabriquePersistance();
-            return;
-        }
 
         executer();
 

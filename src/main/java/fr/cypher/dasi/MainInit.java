@@ -14,8 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MainInit {
-
-    public static boolean executer() {
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
         try {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
@@ -166,15 +166,13 @@ public class MainInit {
 
             JpaUtil.validerTransaction();
             System.out.println("[MainInit] Données de démo insérées avec succès.");
-            return true;
-
         } catch (Exception e) {
             System.err.println("[MainInit] Échec de l'initialisation : " + e.getMessage());
             e.printStackTrace();
             JpaUtil.annulerTransaction();
-            return false;
         } finally {
             JpaUtil.fermerContextePersistance();
+            JpaUtil.fermerFabriquePersistance();
         }
     }
 }

@@ -27,14 +27,14 @@ public class Client extends Utilisateur implements Serializable {
     @OneToMany(mappedBy = "client")
     private final List<Consultation> consultations = new ArrayList<>();
 
-    public Client(String mail, String prenom, String motDePasse, String telephone, String nom, LocalDate dateDeNaissance, Adresse adresse, Genre genre) {
+    public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, LocalDate dateDeNaissance, Adresse adresse) {
         super(mail, prenom, nom, motDePasse, telephone, genre);
         this.dateDeNaissance = dateDeNaissance;
         this.adresse = adresse;
     }
 
     public Client(String mail, String prenom, String nom, String motDePasse, String telephone, Genre genre, LocalDate dateDeNaissance, Adresse adresse, ProfilAstral profilAstral) {
-        this(mail, prenom, motDePasse, telephone, nom, dateDeNaissance, adresse, genre);
+        this(mail, prenom, nom, motDePasse, telephone, genre, dateDeNaissance, adresse);
         this.profilAstral = profilAstral;
     }
     

@@ -1,5 +1,6 @@
 package fr.cypher.dasi.scenario.client;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.embedded.Adresse;
 import fr.cypher.dasi.metier.modele.enums.Genre;
@@ -14,12 +15,14 @@ public class Inscription {
     private static final AuthService   authService   = new AuthService();
     private static final ClientService clientService = new ClientService();
 
-    public static void executer() {
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
         System.out.println("[DEBUT SCENARIO] Inscription");
         inscriptionOK();
         System.out.println();
         inscriptionDoublon();
         System.out.println("[FIN SCENARIO] Inscription");
+        JpaUtil.fermerFabriquePersistance();
     }
 
     private static void inscriptionOK() {
@@ -29,7 +32,7 @@ public class Inscription {
                 "bob.martin@free.fr", "Bob", "Martin", "Bob!2025",
                 "0611223344", Genre.HOMME,
                 LocalDate.of(1988, 7, 15),
-                adresse, null
+                adresse
         );
         boolean res = authService.inscrire(bob);
         System.out.println("Résultat : " + (res ? "OK - client inscrit" : "ECHEC"));
@@ -43,7 +46,7 @@ public class Inscription {
                 "alice.pascal@free.fr", "Alice", "Pascal", "autreMotDePasse",
                 "0600000099", Genre.FEMME,
                 LocalDate.of(1995, 2, 5),
-                adresse, null
+                adresse
         );
         boolean res = authService.inscrire(aliceDoublon);
         System.out.println("Résultat : " + (res ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));

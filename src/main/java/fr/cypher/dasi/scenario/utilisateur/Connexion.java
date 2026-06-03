@@ -1,5 +1,6 @@
 package fr.cypher.dasi.scenario.utilisateur;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.Client;
 import fr.cypher.dasi.metier.modele.Employe;
 import fr.cypher.dasi.metier.modele.Utilisateur;
@@ -8,6 +9,14 @@ import fr.cypher.dasi.metier.service.AuthService;
 public class Connexion {
 
     private static final AuthService authService = new AuthService();
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
+    }
 
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] Connexion");

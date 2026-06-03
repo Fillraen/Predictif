@@ -1,5 +1,6 @@
 package fr.cypher.dasi.scenario.stats;
 
+import fr.cypher.dasi.dao.JpaUtil;
 import fr.cypher.dasi.metier.modele.stat.StatDepartement;
 import fr.cypher.dasi.metier.modele.stat.StatEmploye;
 import fr.cypher.dasi.metier.modele.stat.StatMedium;
@@ -10,6 +11,14 @@ import java.util.List;
 public class PageStats {
 
     private static final StatsService statsService = new StatsService();
+
+    static void main(String[] args) {
+        JpaUtil.creerFabriquePersistance();
+
+        executer();
+
+        JpaUtil.fermerFabriquePersistance();
+    }
 
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] PageStats");
