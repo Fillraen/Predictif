@@ -21,6 +21,8 @@ public class Inscription {
         inscriptionOK();
         System.out.println();
         inscriptionDoublon();
+        System.out.println();
+        inscriptionLeaDubois();
         System.out.println("[FIN SCENARIO] Inscription");
         JpaUtil.fermerFabriquePersistance();
     }
@@ -51,6 +53,19 @@ public class Inscription {
         boolean res = authService.inscrire(aliceDoublon);
         System.out.println("Résultat : " + (res ? "PROBLEME - doublon accepté" : "OK - doublon refusé"));
         listerClients();
+    }
+
+    private static void inscriptionLeaDubois() {
+        System.out.println("=== ÉTAPE : inscription ===");
+        Adresse adresse = new Adresse("3", "Allée des Roses", "33000", "Bordeaux", "33");
+        Client lea = new Client(
+                "lea.dubois@gmail.com", "Léa", "Dubois", "Lea!2025",
+                "0622334455", Genre.FEMME,
+                LocalDate.of(1998, 4, 17),
+                adresse
+        );
+        boolean ok = authService.inscrire(lea);
+        System.out.println("Résultat : " + (ok ? "OK - inscrite, profil astral calculé" : "ECHEC"));
     }
 
     private static void listerClients() {

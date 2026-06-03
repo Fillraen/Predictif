@@ -29,10 +29,6 @@ public class ParcoursClient {
     public static void executer() {
         System.out.println("[DEBUT SCENARIO] ParcoursClient");
 
-        boolean inscrit = inscription();
-        if (!inscrit) { System.out.println("[FIN SCENARIO] ParcoursClient (abandon)"); return; }
-        System.out.println();
-
         Client connecte = connexionLea();
         if (connecte == null) { System.out.println("[FIN SCENARIO] ParcoursClient (abandon)"); return; }
         System.out.println();
@@ -50,20 +46,6 @@ public class ParcoursClient {
         voirHistorique(connecte);
 
         System.out.println("[FIN SCENARIO] ParcoursClient");
-    }
-
-    private static boolean inscription() {
-        System.out.println("=== ÉTAPE 1 : inscription ===");
-        Adresse adresse = new Adresse("3", "Allée des Roses", "33000", "Bordeaux", "33");
-        Client lea = new Client(
-                "lea.dubois@gmail.com", "Léa", "Dubois", "Lea!2025",
-                "0622334455", Genre.FEMME,
-                LocalDate.of(1998, 4, 17),
-                adresse
-        );
-        boolean ok = authService.inscrire(lea);
-        System.out.println("Résultat : " + (ok ? "OK - inscrite, profil astral calculé" : "ECHEC"));
-        return ok;
     }
 
     private static Client connexionLea() {
